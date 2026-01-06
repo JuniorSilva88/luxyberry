@@ -23,7 +23,7 @@ function computePrice() {
 }
 
 // Update estimate live
-['size','choc','toppings','qty','region'].forEach(id => {
+['size', 'choc', 'toppings', 'qty', 'region'].forEach(id => {
   document.getElementById(id).addEventListener('input', computePrice);
 });
 computePrice();
@@ -86,7 +86,7 @@ function checkout() {
   document.getElementById('checkoutBox').style.display = 'block';
 }
 function processPayment() {
-  const sum = cart.reduce((a,c) => a + c.total, 0);
+  const sum = cart.reduce((a, c) => a + c.total, 0);
   const name = document.getElementById('ccName').value.trim();
   const num = document.getElementById('ccNum').value.trim();
   const exp = document.getElementById('ccExp').value.trim();
