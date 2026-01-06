@@ -98,4 +98,77 @@ function processPayment() {
   // Simulate success
   document.getElementById('payStatus').textContent = 'Pagamento aprovado! 🎉';
   // Generate tracking code
-  window.trackingCode = 'LX' + Math.floor(100000 + Math
+  window.trackingCode = 'LX' + Math.floor(100000 + Math.random() * 899999);
+  setTimeout(() => {
+    alert(`Pedido confirmado! Código de rastreio: ${window.trackingCode}`);
+    simulateRoute(true);
+  }, 500);
+}
+
+// Contact form
+function submitContact(e) {
+  e.preventDefault();
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg = document.getElementById('cMsg').value.trim();
+  document.getElementById('cStatus').textContent = 'Mensagem enviada. Entraremos em contato!';
+  console.log({ name, email, msg });
+}
+
+// Route simulation
+let routeTimer;
+function simulateRoute(auto = false) {
+  const map = document.getElementById('map');
+  const eta = document.getElementById('eta');
+  clearInterval(routeTimer);
+  const steps = [
+    'Kitchen — preparo iniciado',
+    'Embalagem completa',
+    'Saiu para entrega (Logan City)',
+    'A caminho — Springwood',
+    'A caminho — Shailer Park',
+    'Chegando ao destino',
+    'Entregue'
+  ];
+  let i = 0;
+  map.textContent = `Status: ${steps[i]}`;
+  eta.textContent = 'ETA: 45–60 min';
+  routeTimer = setInterval(() => {
+    i++;
+    map.textContent = i < steps.length ? `Status: ${steps[i]}` : `Status: Entregue — código ${window.trackingCode || '—'}`;
+    if (i >= steps.length) { clearInterval(routeTimer); eta.textContent = 'ETA: entregue'; }
+  }, auto ? 1800 : 900);
+}
+
+// Load Instagram feed
+function loadInstagramFeed() {
+  // Substitua 'SEU_ACCESS_TOKEN' pelo seu access token do Instagram Basic Display API
+  // Para obter: 1. Crie um app no Facebook Developers (https://developers.facebook.com/)
+  // 2. Configure Instagram Basic Display
+  // 3. Obtenha o access token via OAuth
+  const accessToken = 'SEU_ACCESS_TOKEN'; // IMPORTANTE: Substitua isso
+
+  if (accessToken === 'SEU_ACCESS_TOKEN') {
+    console.log('Configure o access token do Instagram para carregar o feed dinamicamente.');
+    return; // Não carregar se não configurado
+  }
+
+  fetch(`https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink&access_token=${accessToken}`)
+    .then(response => response.json())
+    .then(data => {
+      const igFeed = document.getElementById('igFeed');
+      igFeed.innerHTML = '';
+      data.data.slice(0, 4).forEach(post => {
+        if (post.media_type === 'IMAGE') {
+          const img = document.createElement('img');
+          img.src = post.media_url;
+          img.alt = 'Instagram post';
+          igFeed.appendChild(img);
+        }
+      });
+    })
+    .catch(error => console.error('Erro ao carregar feed do Instagram:', error));
+}
+
+// Chamar a função ao carregar a página
+loadInstagramFeed();
