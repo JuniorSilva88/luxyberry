@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>_luxyberry — Chocolate-covered strawberries</title>
+  <style>
+    :root {
+      --red: #8b1c2a;
+      --rose: #f7c1d0;
+      --gold: #c8a75a;
+      --brown: #4a2c2a;
+      --cream: #fff7f1;
+      --ink: #1a1a1a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fffdfb 0%, #fff2ea 100%);
+    }
+    a { color: var(--red); text-decoration: none; }
+    header {
+      background: radial-gradient(1200px 600px at 80% -100%, #ffdde8 0%, #8b1c2a 60%);
+      color: #fff;
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+    }
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 180px 1fr 220px;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .brand img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.6); }
+    .links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .links a { color: #fff; opacity: 0.92; }
+    .cta { display: flex; justify-content: flex-end; gap: 10px; }
+    .btn {
+      background: var(--gold); color: #2b1f12; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+    }
+    .btn.alt { background: #fff; color: var(--red); }
+    .btn.ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+    .hero {
+      background: linear-gradient(180deg, rgba(139,28,42,0.09) 0%, transparent 100%);
+      color: #fff;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 40px 24px 18px;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center;
+    }
+    .hero h1 { font-size: 42px; line-height: 1.1; margin: 0 0 12px; }
+    .hero p { font-size: 16px; opacity: 0.95; }
+    .hero-card {
+      background: #ffffff18; border: 1px solid #ffffff30; border-radius: 16px; padding: 16px; backdrop-filter: blur(4px);
+    }
+    .hero-card img { width: 100%; border-radius: 12px; object-fit: cover; }
+    .section {
+      max-width: 1100px; margin: 0 auto; padding: 22px 24px;
+    }
+    .section h2 { margin: 6px 0 14px; font-size: 28px; color: var(--brown); }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .card {
+      background: #fff; border: 1px solid #ecd3c3; border-radius: 14px; padding: 14px; box-shadow: 0 8px 24px rgba(76, 23, 39, 0.06);
+    }
+    .card h3 { margin-top: 6px; color: var(--red); }
+    .card img { width: 100%; border-radius: 10px; object-fit: cover; aspect-ratio: 4/3; }
+    .options { display: grid; gap: 8px; margin-top: 8px; }
+    .opt-row { display: grid; grid-template-columns: 160px 1fr; gap: 12px; align-items: center; }
+    .opt-row select, .opt-row input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #e2c9b8; }
+    .pill { display: inline-block; background: #fff7e2; border: 1px solid #f0dcb5; color: #5a3f0b; padding: 6px 10px; border-radius: 999px; font-size: 13px; margin-right: 6px; }
+    .muted { color: #6f5a55; font-size: 14px; }
+    .list { display: grid; gap: 8px; }
+    .table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .table th, .table td { border: 1px solid #ead8c8; padding: 8px; text-align: left; }
+    .notice {
+      background: #fff7ea; border: 1px dashed #e7c89f; border-radius: 12px; padding: 12px; color: #5c3f2a;
+    }
+    .flex { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .footer {
+      margin-top: 24px; background: #2b1f12; color: #fff; padding: 28px 24px;
+    }
+    .footer a { color: #ffd6e4; }
+    .cart {
+      position: fixed; right: 16px; bottom: 16px; background: #fff; border: 1px solid #e4cdb9; border-radius: 12px; padding: 10px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15); width: 320px; max-height: 70vh; overflow: auto; z-index: 20;
+    }
+    .cart h3 { margin: 4px 0 8px; }
+    .cart-item { border-bottom: 1px solid #eee2d8; padding: 8px 0; }
+    .badge { background: #f0efea; border: 1px solid #d9d4c8; border-radius: 8px; padding: 3px 8px; font-size: 12px; }
+    .map {
+      width: 100%;
+      height: 280px;
+      border: 1px solid #e4cdb9;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 20% 30%, #fff0f5 0%, transparent 45%),
+        radial-gradient(circle at 80% 60%, #ffe9d1 0%, transparent 50%),
+        linear-gradient(180deg, #fff 0%, #f9f6f2 100%);
+      display: grid; place-items: center; color: #6c574d;
+      font-weight: 600;
+    }
+    .tagline { font-style: italic; color: #7e5651; }
+    .ig-feed { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .ig-feed img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .nav { grid-template-columns: 1fr; }
+      .cta { justify-content: flex-start; }
+      .cart { width: 96vw; right: 2vw; bottom: 2vw; }
+      .ig-feed { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="1000346474.jpg" alt="_luxyberry logo" />
+      <span>_luxyberry</span>
+    </div>
+    <div class="links">
+      <a href="#home">Início</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#monte">Monte sua caixa</a>
+      <a href="#entrega">Entrega</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="cta">
+      <button class="btn alt" onclick="openCart()">Ver carrinho</button>
+      <a class="btn ghost" href="https://www.instagram.com/_luxyberry" target="_blank">Instagram</a>
+    </div>
+  </div>
+</header>
+
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Something sweet is coming…</h1>
+      <p class="tagline">Caixas personalizadas de morangos cobertos com chocolate — com um toque de luxo.</p>
+      <div class="flex" style="margin-top:10px;">
+        <span class="pill">Feito na manhã da entrega</span>
+        <span class="pill">Personalize toppings</span>
+        <span class="pill">Entrega Logan City e região</span>
+      </div>
+      <div style="margin-top:16px;" class="flex">
+        <a href="#monte" class="btn">Monte sua caixa</a>
+        <a href="#produtos" class="btn alt">Ver opções</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img src="1000346475.jpg" alt="LuxeBerry promo" />
+      <p class="muted">Crie sua caixa perfeita: tamanhos, chocolates e toppings ao seu gosto.</p>
+    </div>
+  </div>
+</section>
+
+<section id="produtos" class="section">
+  <h2>Produtos</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="1000346475.jpg" alt="Box sizes" />
+      <h3>Box sizes</h3>
+      <div class="list">
+        <div><strong>Small:</strong> 6–8 morangos</div>
+        <div><strong>Medium:</strong> 12–15 morangos</div>
+        <div><strong>Large:</strong> 20–30 morangos</div>
+        <div><strong>Extra Large:</strong> 50 morangos</div>
+        <div><strong>Party Pack:</strong> 100+ morangos</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="1000346476.jpg" alt="Chocolate types and toppings" />
+      <h3>Chocolate</h3>
+      <p class="muted">Selecione entre leite, meio amargo, branco (com cor), ou assortimento.</p>
+      <div class="flex">
+        <span class="pill">Milk</span>
+        <span class="pill">Dark</span>
+        <span class="pill">White + cor</span>
+        <span class="pill">Assortment</span>
+      </div>
+    </div>
+    <div class="card">
+      <img src="1000346477.jpg" alt="Toppings gallery" />
+      <h3>Toppings</h3>
+      <p class="muted">Sugestões: Pistachio, Dried Berries, Gold Leaf, Sugar Crystals, Flake, Lotus Biscoff.</p>
+      <p class="muted">Também fazemos toppings sob pedido. Todos os produtos podem conter traços de nuts.</p>
+    </div>
+  </div>
+</section>
+
+<section id="monte" class="section">
+  <h2>Monte sua caixa</h2>
+  <div class="card">
+    <div class="options">
+      <div class="opt-row">
+        <label for="size"><strong>Tamanho da caixa:</strong></label>
+        <select id="size">
+          <option value="small">Small (6–8)</option>
+          <option value="medium" selected>Medium (12–15)</option>
+          <option value="large">Large (20–30)</option>
+          <option value="xl">Extra Large (50)</option>
+          <option value="party">Party Pack (100+)</option>
+        </select>
+      </div>
+      <div class="opt-row">
+        <label for="choc"><strong>Chocolate:</strong></label>
+        <select id="choc">
+          <option value="milk" selected>Milk</option>
+          <option value="dark">Dark</option>
+          <option value="white">White (cor personalizada)</option>
+          <option value="assortment">Assortment</option>
+        </select>
+      </div>
+      <div class="opt-row">
+        <label for="toppings"><strong>Toppings (até 3):</strong></label>
+        <input id="toppings" placeholder="Ex.: Pistachio, Gold Leaf, Lotus Biscoff" />
+      </div>
+      <div class="opt-row">
+        <label for="notes"><strong>Notas do pedido:</strong></label>
+        <input id="notes" placeholder="Preferências, cores, mensagem do cartão…" />
+      </div>
+      <div class="opt-row">
+        <label for="date"><strong>Data de entrega:</strong></label>
+        <input id="date" type="date" />
+      </div>
+      <div class="opt-row">
+        <label for="region"><strong>Região:</strong></label>
+        <select id="region">
+          <option value="logan" selected>Logan City (até 10km)</option>
+          <option value="brisbane">Brisbane</option>
+          <option value="gc">Gold Coast</option>
+          <option value="other">Outra (consultar)</option>
+        </select>
+      </div>
+      <div class="opt-row">
+        <label for="qty"><strong>Quantidade de caixas:</strong></label>
+        <input id="qty" type="number" min="1" value="1" />
+      </div>
+    </div>
+    <div style="margin-top:12px;" class="flex">
+      <button class="btn" onclick="addToCart()">Adicionar ao carrinho</button>
+      <span id="price" class="badge">Estimativa: A$ —</span>
+    </div>
+    <p class="muted" style="margin-top:8px;">
+      Observação: pedidos devem ser feitos com mínimo de 1 semana de antecedência; produzimos na manhã da entrega.
+    </p>
+  </div>
+</section>
+
+<section id="entrega" class="section">
+  <h2>Entrega, armazenamento e consumo</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Política de entrega</h3>
+      <ul class="list">
+        <li>• Pedidos com mínimo de 1 semana de antecedência.</li>
+        <li>• Entrega gratuita dentro de 10 km de Logan City.</li>
+        <li>• Outras regiões: consultar valores.</li>
+        <li>• Pedidos são feitos na manhã da entrega.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Armazenamento e consumo</h3>
+      <ul class="list">
+        <li>• Melhor consumo no mesmo dia.</li>
+        <li>• Guardar em local escuro e fresco (a geladeira pode murchar os morangos).</li>
+      </ul>
+      <div class="notice" style="margin-top:8px;">Todos os produtos podem conter traços de nuts.</div>
+    </div>
+    <div class="card">
+      <h3>Rastreamento</h3>
+      <p class="muted">Ao confirmar seu pedido, você receberá um link para acompanhar a rota em tempo real.</p>
+      <div id="map" class="map">Mapa de rastreio (exemplo)</div>
+      <div class="flex" style="margin-top:8px;">
+        <button class="btn alt" onclick="simulateRoute()">Simular rota</button>
+        <span id="eta" class="badge">ETA: —</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="section">
+  <h2>Sobre e contato</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>_luxyberry</h3>
+      <p class="muted">
+        Nascida do amor por presentes que emocionam, _luxyberry cria experiências doces com morangos selecionados, chocolates finos e toques personalizados.
+      </p>
+      <div class="flex">
+        <a class="btn" href="https://www.instagram.com/_luxyberry" target="_blank">Instagram</a>
+        <a class="btn alt" href="https://wa.me/61400000000" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Feed Instagram</h3>
+      <p class="muted">Incorpore seu conteúdo: aqui mostramos últimas publicações.</p>
+      <div class="ig-feed" id="igFeed">
+        <img src="1000346476.jpg" alt="post 1">
+        <img src="1000346477.jpg" alt="post 2">
+        <img src="1000346478.jpg" alt="post 3">
+        <img src="1000346475.jpg" alt="post 4">
+      </div>
+    </div>
+    <div class="card">
+      <h3>Fale conosco</h3>
+      <form onsubmit="submitContact(event)">
+        <div class="options">
+          <div class="opt-row">
+            <label><strong>Nome:</strong></label>
+            <input id="cName" required />
+          </div>
+          <div class="opt-row">
+            <label><strong>Email:</strong></label>
+            <input id="cEmail" type="email" required />
+          </div>
+          <div class="opt-row">
+            <label><strong>Mensagem:</strong></label>
+            <input id="cMsg" required />
+          </div>
+        </div>
+        <div class="flex" style="margin-top:10px;">
+          <button class="btn">Enviar</button>
+          <span id="cStatus" class="badge">—</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div id="cart" class="cart" style="display:none;">
+  <h3>Seu carrinho</h3>
+  <div id="cartItems"></div>
+  <div class="flex" style="justify-content: space-between;">
+    <span id="cartTotal" class="badge">Total: A$ 0.00</span>
+    <div class="flex">
+      <button class="btn alt" onclick="clearCart()">Limpar</button>
+      <button class="btn" onclick="checkout()">Finalizar</button>
+    </div>
+  </div>
+  <div id="checkoutBox" style="margin-top:10px; display:none;">
+    <h4>Pagamento</h4>
+    <p class="muted">Simulação de pagamento. Para produção real, integrar com Stripe/PayPal.</p>
+    <div class="options">
+      <div class="opt-row">
+        <label><strong>Nome no cartão:</strong></label>
+        <input id="ccName" />
+      </div>
+      <div class="opt-row">
+        <label><strong>Número do cartão:</strong></label>
+        <input id="ccNum" placeholder="4242 4242 4242 4242" />
+      </div>
+      <div class="opt-row">
+        <label><strong>Validade:</strong></label>
+        <input id="ccExp" placeholder="MM/AA" />
+      </div>
+      <div class="opt-row">
+        <label><strong>CVC:</strong></label>
+        <input id="ccCvc" placeholder="123" />
+      </div>
+    </div>
+    <div class="flex" style="margin-top:8px;">
+      <button class="btn" onclick="processPayment()">Pagar A$ <span id="payAmt">0.00</span></button>
+      <span id="payStatus" class="badge">—</span>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="section" style="color:#fff;">
+    <div class="grid">
+      <div>
+        <h3 style="margin:0 0 8px;">Informações</h3>
+        <p class="muted" style="color:#e9ddd3;">ABN/CNPJ, termos e política de privacidade podem ser inseridos aqui.</p>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;">Agendamento</h3>
+        <p class="muted" style="color:#e9ddd3;">Pedidos com 7 dias de antecedência para garantir disponibilidade.</p>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;">Regiões</h3>
+        <p class="muted" style="color:#e9ddd3;">Logan City, Brisbane, Gold Coast — consulte valores para outras áreas.</p>
+      </div>
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:#ccb9a5;">© _luxyberry. Made with love in QLD, Australia.</p>
+  </div>
+</footer>
+
+<script>
+  // Pricing model (example values in AUD)
+  const basePrices = { small: 35, medium: 59, large: 95, xl: 145, party: 260 };
+  const chocAdj = { milk: 0, dark: 5, white: 7, assortment: 10 };
+  const regionFee = { logan: 0, brisbane: 10, gc: 15, other: 20 };
+
+  const cart = [];
+
+  function computePrice() {
+    const size = document.getElementById('size').value;
+    const choc = document.getElementById('choc').value;
+    const tops = document.getElementById('toppings').value
+      .split(',').map(s => s.trim()).filter(Boolean);
+    const qty = Math.max(1, parseInt(document.getElementById('qty').value || '1', 10));
+    const region = document.getElementById('region').value;
+
+    const toppingAdj = Math.max(0, (tops.length > 3 ? 3 : tops.length)) * 3; // A$3 cada, até 3
+    const pricePer = (basePrices[size] || 0) + (chocAdj[choc] || 0) + toppingAdj;
+    const delivery = regionFee[region] || 0;
+    const total = pricePer * qty + delivery;
+
+    document.getElementById('price').textContent = `Estimativa: A$ ${total.toFixed(2)}`;
+    return { pricePer, delivery, total, tops, size, choc, qty, region };
+  }
+
+  // Update estimate live
+  ['size','choc','toppings','qty','region'].forEach(id => {
+    document.getElementById(id).addEventListener('input', computePrice);
+  });
+  computePrice();
+
+  function addToCart() {
+    const date = document.getElementById('date').value;
+    const notes = document.getElementById('notes').value;
+    const est = computePrice();
+
+    if (!date) {
+      alert('Por favor, selecione a data de entrega (mínimo 1 semana).');
+      return;
+    }
+
+    const item = {
+      size: est.size, choc: est.choc, tops: est.tops, qty: est.qty, date, notes,
+      deliveryRegion: est.region, deliveryFee: est.delivery, pricePer: est.pricePer, total: est.total
+    };
+    cart.push(item);
+    renderCart();
+    openCart();
+  }
+
+  function openCart() {
+    document.getElementById('cart').style.display = 'block';
+    renderCart();
+  }
+  function clearCart() {
+    cart.length = 0;
+    renderCart();
+  }
+  function renderCart() {
+    const el = document.getElementById('cartItems');
+    el.innerHTML = '';
+    let sum = 0;
+    cart.forEach((item, i) => {
+      sum += item.total;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div><strong>Caixa ${item.size.toUpperCase()}</strong> x${item.qty} — A$ ${(item.total).toFixed(2)}</div>
+        <div class="muted">Chocolate: ${item.choc}, Toppings: ${item.tops.join(', ') || '—'}</div>
+        <div class="muted">Entrega: ${item.deliveryRegion} (A$ ${item.deliveryFee.toFixed(2)}) | Data: ${item.date}</div>
+        <div class="muted">Notas: ${item.notes || '—'}</div>
+        <div class="flex" style="margin-top:6px;">
+          <button class="btn alt" onclick="removeItem(${i})">Remover</button>
+        </div>
+      `;
+      el.appendChild(div);
+    });
+    document.getElementById('cartTotal').textContent = `Total: A$ ${sum.toFixed(2)}`;
+    document.getElementById('payAmt').textContent = sum.toFixed(2);
+  }
+  function removeItem(i) {
+    cart.splice(i, 1);
+    renderCart();
+  }
+  function checkout() {
+    if (!cart.length) { alert('Seu carrinho está vazio.'); return; }
+    document.getElementById('checkoutBox').style.display = 'block';
+  }
+  function processPayment() {
+    const sum = cart.reduce((a,c) => a + c.total, 0);
+    const name = document.getElementById('ccName').value.trim();
+    const num = document.getElementById('ccNum').value.trim();
+    const exp = document.getElementById('ccExp').value.trim();
+    const cvc = document.getElementById('ccCvc').value.trim();
+    if (!name || !num || !exp || !cvc) {
+      document.getElementById('payStatus').textContent = 'Preencha os dados do cartão.';
+      return;
+    }
+    // Simulate success
+    document.getElementById('payStatus').textContent = 'Pagamento aprovado! 🎉';
+    // Generate tracking code
+    window.trackingCode = 'LX' + Math.floor(100000 + Math.random()*899999);
+    setTimeout(() => {
+      alert(`Pedido confirmado! Código de rastreio: ${window.trackingCode}`);
+      simulateRoute(true);
+    }, 500);
+  }
+
+  // Contact form
+  function submitContact(e) {
+    e.preventDefault();
+    const name = document.getElementById('cName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const msg = document.getElementById('cMsg').value.trim();
+    document.getElementById('cStatus').textContent = 'Mensagem enviada. Entraremos em contato!';
+    console.log({ name, email, msg });
+  }
+
+  // Route simulation
+  let routeTimer;
+  function simulateRoute(auto=false) {
+    const map = document.getElementById('map');
+    const eta = document.getElementById('eta');
+    clearInterval(routeTimer);
+    const steps = [
+      'Kitchen — preparo iniciado',
+      'Embalagem completa',
+      'Saiu para entrega (Logan City)',
+      'A caminho — Springwood',
+      'A caminho — Shailer Park',
+      'Chegando ao destino',
+      'Entregue'
+    ];
+    let i = 0;
+    map.textContent = `Status: ${steps[i]}`;
+    eta.textContent = 'ETA: 45–60 min';
+    routeTimer = setInterval(() => {
+      i++;
+      map.textContent = i < steps.length ? `Status: ${steps[i]}` : `Status: Entregue — código ${window.trackingCode || '—'}`;
+      if (i >= steps.length) { clearInterval(routeTimer); eta.textContent = 'ETA: entregue'; }
+    }, auto ? 1800 : 900);
+  }
+</script>
+
+</body>
+</html>
+
