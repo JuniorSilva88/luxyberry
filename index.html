@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Site language set to English (target: Australia) -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>_luxyberry — Chocolate-covered strawberries</title>
+
+  <!-- External CSS (make sure the path matches your folder structure) -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <img src="images/logo.png" alt="_luxyberry logo" />
+        <span>_luxyberry</span>
+      </div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#custom">Build Your Box</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="cta">
+        <button class="btn alt" onclick="openCart()">View Cart</button>
+        <a class="btn ghost" href="https://www.instagram.com/_luxyberry" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Something sweet is coming…</h1>
+        <p class="tagline">Custom gourmet chocolate-covered strawberries — made fresh in Queensland.</p>
+        <div class="flex" style="margin-top:10px;">
+          <span class="pill">Made on delivery morning</span>
+          <span class="pill">Custom toppings</span>
+          <span class="pill">Delivery in Logan City & region</span>
+        </div>
+        <div style="margin-top:16px;" class="flex">
+          <a href="#custom" class="btn">Build Your Box</a>
+          <a href="#products" class="btn alt">View Options</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="images/banner.jpg" alt="LuxyBerry promo" />
+        <p class="muted">Create your perfect box: sizes, chocolates and toppings your way.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section id="products" class="section">
+    <h2>Products</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="images/boxes.jpg" alt="Box sizes" />
+        <h3>Box Sizes</h3>
+        <div class="list">
+          <div><strong>Small:</strong> 6–8 strawberries</div>
+          <div><strong>Medium:</strong> 12–15 strawberries</div>
+          <div><strong>Large:</strong> 20–30 strawberries</div>
+          <div><strong>Extra Large:</strong> 50 strawberries</div>
+          <div><strong>Party Pack:</strong> 100+ strawberries</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/chocolates.jpg" alt="Chocolate types" />
+        <h3>Chocolate</h3>
+        <p class="muted">Choose from milk, dark, white (with colour), or assortment.</p>
+        <div class="flex">
+          <span class="pill">Milk</span>
+          <span class="pill">Dark</span>
+          <span class="pill">White + colour</span>
+          <span class="pill">Assortment</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/toppings.jpg" alt="Toppings gallery" />
+        <h3>Toppings</h3>
+        <p class="muted">Suggestions: Pistachio, Dried Berries, Gold Leaf, Sugar Crystals, Flake, Lotus Biscoff.</p>
+        <p class="muted">We also do custom toppings. All products may contain traces of nuts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY SECTION -->
+  <section id="delivery" class="section">
+    <h2>Delivery & Storage</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Delivery Policy</h3>
+        <ul class="list">
+          <li>• Orders must be placed at least 1 week in advance.</li>
+          <li>• Free delivery within 10km of Logan City.</li>
+          <li>• Other regions: inquire for pricing.</li>
+          <li>• Orders are made on the morning of delivery.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Storage & Consumption</h3>
+        <ul class="list">
+          <li>• Best consumed on the same day.</li>
+          <li>• Store in a dark cool place (fridge may wilt strawberries).</li>
+        </ul>
+        <div class="notice" style="margin-top:8px;">All products may contain traces of nuts.</div>
+      </div>
+      <div class="card">
+        <h3>Tracking</h3>
+        <p class="muted">After confirming your order, you'll receive a link to track your route in real time.</p>
+        <div id="map" class="map">Tracking map (example)</div>
+        <div class="flex" style="margin-top:8px;">
+          <button class="btn alt" onclick="simulateRoute()">Simulate Route</button>
+          <span id="eta" class="badge">ETA: —</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <form onsubmit="submitContact(event)">
+      <input id="cName" placeholder="Name" required />
+      <input id="cEmail" type="email" placeholder="Email" required />
+      <input id="cMsg" placeholder="Message" required />
+      <button type="submit" class="btn">Send</button>
+      <span id="cStatus" class="badge">—</span>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© _luxyberry. Made with love in QLD, Australia.</p>
+  </footer>
+
+  <!-- External JS -->
+  <script src="js/script.js"></script>
+</body>
+</html>
