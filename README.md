@@ -16,19 +16,58 @@ Nosso objetivo é oferecer uma experiência de compra doce e luxuosa, permitindo
 - Rastreamento de entregas em tempo real.
 - Layout responsivo para celular e desktop.
 - Integração com Instagram para mostrar novidades e promoções.
+- Pagamentos seguros via Stripe (suportado na Austrália).
 
 ---
 
 ## 🛠️ Tecnologias
 - **Frontend:** HTML, CSS, JavaScript  
-- **Plataforma futura:** Shopify / WordPress + WooCommerce  
-- **Pagamentos:** Stripe / PayPal  
-- **Entrega:** Google Maps API (rastreamento)  
+- **Backend:** Node.js com Express  
+- **Pagamentos:** Stripe  
+- **Outros:** CORS para desenvolvimento  
 
 ---
 
-## 🚀 Objetivo
-Facilitar pedidos online e expandir a presença digital da marca _luxyberry, conectando clientes a uma experiência única de presentes gourmet.
+## 🚀 Instalação e Execução
+
+### Pré-requisitos
+- Node.js (versão 18 ou superior)
+- npm
+
+### Passos
+
+1. **Clone ou baixe o repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/luxyberry.git
+   cd luxyberry
+   ```
+
+2. **Instale as dependências**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure as chaves do Stripe**:
+   - Crie uma conta em [Stripe](https://stripe.com/au) (suportado na Austrália).
+   - Obtenha suas chaves de API (Publishable Key e Secret Key).
+   - No arquivo `server.js`, substitua `'sk_test_...'` pela sua Secret Key.
+   - No arquivo `js/script.js`, substitua `'pk_test_...'` pela sua Publishable Key.
+
+4. **Configure o Feed do Instagram (opcional)**:
+   - Para carregar fotos dinamicamente, siga os passos no código `js/script.js` para obter um Access Token do Instagram Basic Display API.
+   - Substitua `'SEU_ACCESS_TOKEN'` no código.
+
+5. **Execute o servidor**:
+   ```bash
+   npm start
+   ```
+   Ou para desenvolvimento com auto-reload:
+   ```bash
+   npm run dev
+   ```
+
+6. **Acesse o site**:
+   - Abra o navegador em `http://localhost:8000`
 
 ---
 

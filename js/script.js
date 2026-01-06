@@ -95,9 +95,35 @@ function processPayment() {
     document.getElementById('payStatus').textContent = 'Preencha os dados do cartão.';
     return;
   }
-  // Simulate success
-  document.getElementById('payStatus').textContent = 'Pagamento aprovado! 🎉';
-  // Generate tracking code
+
+  // Integração com Stripe via backend Node.js
+  const stripe = Stripe('pk_test_...'); // Substitua pela sua publishable key do Stripe
+
+  // Preparar itens do carrinho
+  const items = cart.map(item => ({
+    name: `Caixa ${item.size.toUpperCase()}`,
+    price: item.total,
+    quantity: 1,
+  }));
+
+  fetch('/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount: sum, currency: 'aud', items }),
+  })
+    .then(response => response.json())
+    .then(session => {
+      if (session.error) {
+        document.getElementById('payStatus').textContent = 'Erro: ' + session.error;
+      } else {
+        stripe.redirectToCheckout({ sessionId: session.id });
+      }
+    })
+    .catch(error => {
+      document.getElementById('payStatus').textContent = 'Erro ao processar pagamento.';
+      console.error(error);
+    });
+}
   window.trackingCode = 'LX' + Math.floor(100000 + Math.random() * 899999);
   setTimeout(() => {
     alert(`Pedido confirmado! Código de rastreio: ${window.trackingCode}`);

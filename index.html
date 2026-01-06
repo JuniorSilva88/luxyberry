@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>_luxyberry — Chocolate-covered strawberries</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
+  <link rel="stylesheet" href="css/style.css" />  <!-- Stripe.js para pagamentos -->
+  <script src="https://js.stripe.com/v3/"></script></head>
 
 <body>
 
@@ -191,6 +191,7 @@
           <a class="btn alt" href="https://wa.me/61400000000" target="_blank">WhatsApp</a>
         </div>
       </div>
+
       <div class="card">
         <h3>Feed Instagram</h3>
         <p class="muted">Incorpore seu conteúdo: aqui mostramos últimas publicações.</p>
@@ -201,6 +202,7 @@
           <img src="1000346475.jpg" alt="post 4">
         </div>
       </div>
+      
       <div class="card">
         <h3>Fale conosco</h3>
         <form onsubmit="submitContact(event)">
@@ -239,7 +241,16 @@
     </div>
     <div id="checkoutBox" style="margin-top:10px; display:none;">
       <h4>Pagamento</h4>
-      <p class="muted">Simulação de pagamento. Para produção real, integrar com Stripe/PayPal.</p>
+      <p class="muted">Aceitamos pagamentos seguros via Stripe. Métodos suportados na Austrália: Visa, Mastercard, American Express, PayPal, Afterpay (Zip), Apple Pay e Google Pay.</p>
+      <div class="flex" style="margin-bottom:10px;">
+        <span class="pill">Visa</span>
+        <span class="pill">Mastercard</span>
+        <span class="pill">PayPal</span>
+        <span class="pill">Afterpay</span>
+        <span class="pill">Apple Pay</span>
+        <span class="pill">Google Pay</span>
+      </div>
+      <p class="muted">Para produção, integre com Stripe Checkout. Atualmente, simulação.</p>
       <div class="options">
         <div class="opt-row">
           <label><strong>Nome no cartão:</strong></label>

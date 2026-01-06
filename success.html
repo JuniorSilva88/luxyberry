@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagamento Aprovado - _luxyberry</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <img src="1000346474.jpg" alt="_luxyberry logo" />
+        <span>_luxyberry</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Pagamento Aprovado! 🎉</h2>
+    <p>Obrigado por seu pedido. Você receberá um email de confirmação em breve.</p>
+    <p>Código de rastreio: <strong id="trackingCode">LX000000</strong></p>
+    <a href="index.html" class="btn">Voltar ao início</a>
+  </section>
+
+  <script>
+    // Gerar código de rastreio (pode vir do backend)
+    document.getElementById('trackingCode').textContent = 'LX' + Math.floor(100000 + Math.random() * 899999);
+  </script>
+</body>
+</html>
