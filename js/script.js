@@ -29,22 +29,33 @@ function computePrice() {
 computePrice();
 
 function addToCart() {
-  const date = document.getElementById('date').value;
+  const size = document.getElementById('size').value;
+  const choc = document.getElementById('choc').value;
+  const toppings = Array.from(document.querySelectorAll('.toppings-selector input:checked')).map(cb => cb.value);
   const notes = document.getElementById('notes').value;
-  const est = computePrice();
+  const date = document.getElementById('date').value;
+  const region = document.getElementById('region').value;
+  const qty = Math.max(1, parseInt(document.getElementById('qty').value || '1', 10));
 
   if (!date) {
-    alert('Por favor, selecione a data de entrega (mínimo 1 semana).');
+    alert('Please select a delivery date (minimum 1 week).');
     return;
   }
 
-  const item = {
-    size: est.size, choc: est.choc, tops: est.tops, qty: est.qty, date, notes,
-    deliveryRegion: est.region, deliveryFee: est.delivery, pricePer: est.pricePer, total: est.total
-  };
+  const item = { size, choc, toppings, notes, date, region, qty };
   cart.push(item);
-  renderCart();
+  updateCart();
   openCart();
+  alert('Added to cart!');
+}
+
+function limitToppings() {
+  const checkboxes = document.querySelectorAll('.toppings-selector input[type="checkbox"]');
+  const checked = document.querySelectorAll('.toppings-selector input[type="checkbox"]:checked');
+  if (checked.length > 3) {
+    event.target.checked = false;
+    alert('You can select up to 3 toppings only.');
+  }
 }
 
 function openCart() {

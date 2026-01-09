@@ -17,15 +17,27 @@
     <div class="nav">
       <div class="brand">
         <img src="imagens/logo.jpg" alt="_luxyberry logo" />
-        <span>_luxyberry</span>
+        <span class="logo-text">_luxyberry</span>
       </div>
       <div class="links">
         <a href="index.html" data-translate="home">Home</a>
-        <a href="products.html" class="active" data-translate="products">Products</a>
+        <div class="dropdown">
+          <a href="products.html" class="active" data-translate="products">Products</a>
+          <div class="dropdown-content">
+            <a href="products.html#small">Small</a>
+            <a href="products.html#medium">Medium</a>
+            <a href="products.html#large">Large</a>
+            <a href="products.html#xl">XL</a>
+            <a href="products.html#party">Party Pack</a>
+          </div>
+        </div>
         <a href="about.html" data-translate="about">About</a>
       </div>
       <div class="cta">
-        <button class="btn alt" onclick="openCart()" data-translate="viewCart">View cart</button>
+        <button class="btn primary" onclick="window.location.href='products.html'" data-translate="orderNow">Order Now</button>
+        <button class="icon-btn" onclick="openSearch()">🔍</button>
+        <button class="icon-btn" onclick="openCart()">🛒</button>
+        <button class="icon-btn" onclick="openLogin()">👤</button>
         <a class="btn ghost" href="https://www.instagram.com/_luxyberry" target="_blank" data-translate="instagram">Instagram</a>
         <div class="lang-switch">
           <button onclick="changeLanguage('en')">🇦🇺 AU</button>
@@ -112,8 +124,15 @@
           </select>
         </div>
         <div class="opt-row">
-          <label for="toppings" data-translate="toppingsLabel"><strong>Toppings (up to 3):</strong></label>
-          <input id="toppings" placeholder="Ex.: Pistachio, Gold Leaf, Lotus Biscoff" />
+          <label data-translate="toppingsLabel"><strong>Toppings (up to 3):</strong></label>
+          <div class="toppings-selector">
+            <label><input type="checkbox" value="Pistachio" onchange="limitToppings()"> Pistachio</label>
+            <label><input type="checkbox" value="Dried Berries" onchange="limitToppings()"> Dried Berries</label>
+            <label><input type="checkbox" value="Gold Leaf" onchange="limitToppings()"> Gold Leaf</label>
+            <label><input type="checkbox" value="Sugar Crystals" onchange="limitToppings()"> Sugar Crystals</label>
+            <label><input type="checkbox" value="Flake" onchange="limitToppings()"> Flake</label>
+            <label><input type="checkbox" value="Lotus Biscoff" onchange="limitToppings()"> Lotus Biscoff</label>
+          </div>
         </div>
         <div class="opt-row">
           <label for="notes" data-translate="orderNotes"><strong>Order notes:</strong></label>
@@ -149,20 +168,34 @@
 
   <footer class="footer">
     <div class="section" style="color:#fff;">
-      <div class="grid">
+      <div class="footer-grid">
         <div>
-          <h3 style="margin:0 0 8px;">Information</h3>
-          <p class="muted" style="color:#e9ddd3;">ABN/CNPJ, terms and privacy policy can be inserted here.
-          </p>
+          <h3>Contact Us</h3>
+          <p>Phone: +61 400 000 000</p>
+          <p>Email: hello@luxyberry.com</p>
+          <p>Address: Logan City, QLD, Australia</p>
         </div>
         <div>
-          <h3 style="margin:0 0 8px;">Scheduling</h3>
-          <p class="muted" style="color:#e9ddd3;">Orders with 7 days advance notice to ensure availability.</p>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#tracking">Tracking</a></li>
+            <li><a href="#">Terms & Privacy</a></li>
+          </ul>
         </div>
         <div>
-          <h3 style="margin:0 0 8px;">Regions</h3>
-          <p class="muted" style="color:#e9ddd3;">Logan City, Brisbane, Gold Coast — consult values for other areas.
-          </p>
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://www.instagram.com/_luxyberry" target="_blank">📷 Instagram</a>
+            <a href="https://wa.me/61400000000" target="_blank">💬 WhatsApp</a>
+          </div>
+        </div>
+        <div>
+          <h3>Newsletter</h3>
+          <p>Subscribe for updates and special offers</p>
+          <input type="email" placeholder="Your email" style="width: 100%; padding: 8px; margin: 8px 0; border: none; border-radius: 4px;">
+          <button class="btn" style="width: 100%;">Subscribe</button>
         </div>
       </div>
       <p style="margin-top:12px; font-size:13px; color:#ccb9a5;">© 2026 _luxyberry. All rights reserved. Developed by <a href="https://github.com/JuniorSilva88" target="_blank" style="color:#ffd6e4;">JuniorSilva88</a>.</p>

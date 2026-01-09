@@ -254,6 +254,20 @@ header {
   gap: 15px;
 }
 
+/* Toppings selector */
+.toppings-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.toppings-selector label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: normal;
+}
+
 /* Modal styles */
 .modal {
   display: none;
