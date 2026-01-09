@@ -221,3 +221,20 @@ window.onclick = function(event) {
     modal.style.display = 'none';
   }
 }
+
+// Additional header functions
+function openSearch() {
+  alert('Search functionality coming soon!');
+}
+
+function openLogin() {
+  alert('Login functionality coming soon!');
+}
+
+function addToCart(size) {
+  const prices = { small: 35, medium: 59, large: 95, xl: 145, party: 260 };
+  const item = { size, price: prices[size], qty: 1 };
+  cart.push(item);
+  updateCart();
+  alert(`${size} box added to cart!`);
+}
