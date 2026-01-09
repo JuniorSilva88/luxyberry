@@ -197,4 +197,27 @@ function loadInstagramFeed() {
 }
 
 // Chamar a função ao carregar a página
-loadInstagramFeed();
+// loadInstagramFeed(); // Removido pois a seção foi removida
+
+// Modal functions
+function openModal(src, caption) {
+  console.log('Abrindo modal com src:', src, 'caption:', caption);
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const captionText = document.getElementById('caption');
+  modal.style.display = 'flex';
+  modalImg.src = src;
+  captionText.innerHTML = caption;
+}
+
+function closeModal() {
+  document.getElementById('imageModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById('imageModal');
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}

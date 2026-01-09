@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products - _luxyberry — Chocolate-covered strawberries</title>
+  <meta name="description" content="Explore our luxurious chocolate-covered strawberries. Customize your box with sizes, chocolates, and toppings. Order now!" />
+  <meta name="keywords" content="chocolate strawberries, custom boxes, toppings, luxury gifts, Logan City" />
+  <link rel="icon" href="imagens/logo.jpg" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <img src="imagens/logo.jpg" alt="_luxyberry logo" />
+        <span>_luxyberry</span>
+      </div>
+      <div class="links">
+        <a href="index.html" data-translate="home">Home</a>
+        <a href="products.html" class="active" data-translate="products">Products</a>
+        <a href="about.html" data-translate="about">About</a>
+      </div>
+      <div class="cta">
+        <button class="btn alt" onclick="openCart()" data-translate="viewCart">View cart</button>
+        <a class="btn ghost" href="https://www.instagram.com/_luxyberry" target="_blank" data-translate="instagram">Instagram</a>
+        <div class="lang-switch">
+          <button onclick="changeLanguage('en')">🇦🇺 AU</button>
+          <button onclick="changeLanguage('pt')">🇧🇷 PT</button>
+          <button onclick="changeLanguage('es')">🇪🇸 ES</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="produtos" class="section">
+    <h2 data-translate="productsTitle">Products</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="imagens/img11.jpg" alt="Box sizes" />
+        <h3 data-translate="boxSizes">Box sizes</h3>
+        <div class="list">
+          <div><strong>Small:</strong> 6–8 strawberries</div>
+          <div><strong>Medium:</strong> 12–15 strawberries</div>
+          <div><strong>Large:</strong> 20–30 strawberries</div>
+          <div><strong>Extra Large:</strong> 50 strawberries</div>
+          <div><strong>Party Pack:</strong> 100+ strawberries</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="imagens/img3.jpg" alt="Chocolate types and toppings" />
+        <h3 data-translate="chocolate">Chocolate</h3>
+        <p class="muted" data-translate="chocolateDesc">Select from milk, dark, white (with color), or assortment.</p>
+        <div class="flex">
+          <span class="pill">Milk</span>
+          <span class="pill">Dark</span>
+          <span class="pill">White + color</span>
+          <span class="pill">Assortment</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="imagens/img4.jpg" alt="Toppings gallery" />
+        <h3 data-translate="toppings">Toppings</h3>
+        <p class="muted" data-translate="toppingsDesc">Suggestions: Pistachio, Dried Berries, Gold Leaf, Sugar Crystals, Flake, Lotus Biscoff.</p>
+        <p class="muted" data-translate="nutsNote">We also do custom toppings. All products may contain traces of nuts.</p>
+      </div>
+    </div>
+    <div class="gallery">
+      <h3 data-translate="gallery">Product Gallery</h3>
+      <div class="grid">
+        <img src="imagens/img1.jpg" alt="Product 1" onclick="openModal(this.src, 'Milk chocolate-covered strawberries')" data-caption="Milk chocolate-covered strawberries">
+        <img src="imagens/img2.jpg" alt="Product 2" onclick="openModal(this.src, 'Custom box with toppings')" data-caption="Custom box with toppings">
+        <img src="imagens/img5.jpg" alt="Product 3" onclick="openModal(this.src, 'White chocolate with dried berries')" data-caption="White chocolate with dried berries">
+        <img src="imagens/img6.jpg" alt="Product 4" onclick="openModal(this.src, 'Assorted chocolates')" data-caption="Assorted chocolates">
+        <img src="imagens/img7.jpg" alt="Product 5" onclick="openModal(this.src, 'Gold leaf toppings')" data-caption="Gold leaf toppings">
+        <img src="imagens/img8.jpg" alt="Product 6" onclick="openModal(this.src, 'Fresh selected strawberries')" data-caption="Fresh selected strawberries">
+        <img src="imagens/img9.jpg" alt="Product 7" onclick="openModal(this.src, 'Small gift box')" data-caption="Small gift box">
+        <img src="imagens/img12.jpg" alt="Product 8" onclick="openModal(this.src, 'Dark chocolate')" data-caption="Dark chocolate">
+        <img src="imagens/img13.jpg" alt="Product 9" onclick="openModal(this.src, 'Sugar crystal toppings')" data-caption="Sugar crystal toppings">
+        <img src="imagens/img14.jpeg" alt="Product 10" onclick="openModal(this.src, 'Large event box')" data-caption="Large event box">
+        <img src="imagens/img15.jpeg" alt="Product 11" onclick="openModal(this.src, 'Strawberries with flakes')" data-caption="Strawberries with flakes">
+        <img src="imagens/img16.jpg" alt="Product 12" onclick="openModal(this.src, 'Color personalization')" data-caption="Color personalization">
+        <img src="imagens/img17.jpg" alt="Product 13" onclick="openModal(this.src, 'Special delivery')" data-caption="Special delivery">
+      </div>
+    </div>
+  </section>
+
+  <section id="monte" class="section">
+    <h2 data-translate="buildYourBox">Build Your Box</h2>
+    <div class="card">
+      <div class="options">
+        <div class="opt-row">
+          <label for="size" data-translate="boxSize"><strong>Box size:</strong></label>
+          <select id="size">
+            <option value="small">Small (6–8)</option>
+            <option value="medium" selected>Medium (12–15)</option>
+            <option value="large">Large (20–30)</option>
+            <option value="xl">Extra Large (50)</option>
+            <option value="party">Party Pack (100+)</option>
+          </select>
+        </div>
+        <div class="opt-row">
+          <label for="choc" data-translate="chocolate"><strong>Chocolate:</strong></label>
+          <select id="choc">
+            <option value="milk" selected>Milk</option>
+            <option value="dark">Dark</option>
+            <option value="white">White (custom color)</option>
+            <option value="assortment">Assortment</option>
+          </select>
+        </div>
+        <div class="opt-row">
+          <label for="toppings" data-translate="toppingsLabel"><strong>Toppings (up to 3):</strong></label>
+          <input id="toppings" placeholder="Ex.: Pistachio, Gold Leaf, Lotus Biscoff" />
+        </div>
+        <div class="opt-row">
+          <label for="notes" data-translate="orderNotes"><strong>Order notes:</strong></label>
+          <input id="notes" placeholder="Preferences, colors, card message…" />
+        </div>
+        <div class="opt-row">
+          <label for="date" data-translate="deliveryDate"><strong>Delivery date:</strong></label>
+          <input id="date" type="date" />
+        </div>
+        <div class="opt-row">
+          <label for="region" data-translate="region"><strong>Region:</strong></label>
+          <select id="region">
+            <option value="logan" selected>Logan City (up to 10km)</option>
+            <option value="brisbane">Brisbane</option>
+            <option value="gc">Gold Coast</option>
+            <option value="other">Other (consult)</option>
+          </select>
+        </div>
+        <div class="opt-row">
+          <label for="qty" data-translate="quantity"><strong>Number of boxes:</strong></label>
+          <input id="qty" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <div style="margin-top:12px;" class="flex">
+        <button class="btn" onclick="addToCart()" data-translate="addToCart">Add to cart</button>
+        <span id="price" class="badge" data-translate="estimate">Estimate: A$ —</span>
+      </div>
+      <p class="muted" style="margin-top:8px;" data-translate="note">
+        Note: orders require minimum 1 week advance; we produce on delivery morning.
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="section" style="color:#fff;">
+      <div class="grid">
+        <div>
+          <h3 style="margin:0 0 8px;">Information</h3>
+          <p class="muted" style="color:#e9ddd3;">ABN/CNPJ, terms and privacy policy can be inserted here.
+          </p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px;">Scheduling</h3>
+          <p class="muted" style="color:#e9ddd3;">Orders with 7 days advance notice to ensure availability.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px;">Regions</h3>
+          <p class="muted" style="color:#e9ddd3;">Logan City, Brisbane, Gold Coast — consult values for other areas.
+          </p>
+        </div>
+      </div>
+      <p style="margin-top:12px; font-size:13px; color:#ccb9a5;">© 2026 _luxyberry. All rights reserved. Developed by <a href="https://github.com/JuniorSilva88" target="_blank" style="color:#ffd6e4;">JuniorSilva88</a>.</p>
+    </div>
+  </footer>
+
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+    <div id="caption"></div>
+  </div>
+
+  <div id="cart" class="cart" style="display:none;">
+    <h3>Your cart</h3>
+    <div id="cartItems"></div>
+    <div class="flex" style="justify-content: space-between;">
+      <span id="cartTotal" class="badge">Total: A$ 0.00</span>
+      <div class="flex">
+        <button class="btn alt" onclick="clearCart()">Clear</button>
+        <button class="btn" onclick="checkout()">Checkout</button>
+      </div>
+    </div>
+    <div id="checkoutBox" style="margin-top:10px; display:none;">
+      <h4>Payment</h4>
+      <p class="muted">We accept secure payments via Stripe. Methods supported in Australia: Visa, Mastercard, American Express, PayPal, Afterpay (Zip), Apple Pay and Google Pay.</p>
+      <div class="flex" style="margin-bottom:10px;">
+        <span class="pill">Visa</span>
+        <span class="pill">Mastercard</span>
+        <span class="pill">PayPal</span>
+        <span class="pill">Afterpay</span>
+        <span class="pill">Apple Pay</span>
+        <span class="pill">Google Pay</span>
+      </div>
+      <p class="muted">For production, integrate with Stripe Checkout. Currently simulation.</p>
+      <div class="options">
+        <div class="opt-row">
+          <label><strong>Card name:</strong></label>
+          <input id="ccName" />
+        </div>
+        <div class="opt-row">
+          <label><strong>Card number:</strong></label>
+          <input id="ccNum" placeholder="4242 4242 4242 4242" />
+        </div>
+        <div class="opt-row">
+          <label><strong>Expiry:</strong></label>
+          <input id="ccExp" placeholder="MM/AA" />
+        </div>
+        <div class="opt-row">
+          <label><strong>CVC:</strong></label>
+          <input id="ccCvc" placeholder="123" />
+        </div>
+      </div>
+      <div class="flex" style="margin-top:8px;">
+        <button class="btn" onclick="processPayment()">Pay A$ <span id="payAmt">0.00</span></button>
+        <span id="payStatus" class="badge">—</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/translation.js"></script>
+
+</body>
+
+</html>
