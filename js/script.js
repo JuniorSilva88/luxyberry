@@ -242,6 +242,11 @@ function openLogin() {
   alert('Login functionality coming soon!');
 }
 
+function toggleMenu() {
+  const links = document.querySelector('.links');
+  links.classList.toggle('show');
+}
+
 function addToCart(size) {
   const prices = { small: 35, medium: 59, large: 95, xl: 145, party: 260 };
   const item = { size, price: prices[size], qty: 1 };

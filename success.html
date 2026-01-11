@@ -1,31 +1,106 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pagamento Aprovado - _luxyberry</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Payment Successful - _luxyberry</title>
+  <meta name="description" content="Payment confirmed. Thank you for your order!" />
+  <link rel="icon" href="imagens/logo.jpg" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
   <header>
     <div class="nav">
       <div class="brand">
-        <img src="1000346474.jpg" alt="_luxyberry logo" />
-        <span>_luxyberry</span>
+        <img src="imagens/logo.jpg" alt="_luxyberry logo" />
+        <span class="logo-text">_luxyberry</span>
+      </div>
+      <div class="links">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <a href="index.html" data-translate="home">Home</a>
+        <div class="dropdown">
+          <a href="products.html" data-translate="products">Products</a>
+          <div class="dropdown-content">
+            <a href="products.html#small">Small</a>
+            <a href="products.html#medium">Medium</a>
+            <a href="products.html#large">Large</a>
+            <a href="products.html#xl">XL</a>
+            <a href="products.html#party">Party Pack</a>
+          </div>
+        </div>
+        <a href="about.html" data-translate="about">About</a>
+      </div>
+      <div class="cta">
+        <button class="btn primary" onclick="window.location.href='products.html'" data-translate="orderNow">Order Now</button>
+        <a class="btn ghost" href="https://www.instagram.com/_luxyberry" target="_blank" data-translate="instagram">Instagram</a>
+        <div class="lang-switch">
+          <button onclick="changeLanguage('en')">🇦🇺 AU</button>
+          <button onclick="changeLanguage('pt')">🇧🇷 PT</button>
+          <button onclick="changeLanguage('es')">🇪🇸 ES</button>
+        </div>
       </div>
     </div>
   </header>
 
   <section class="section">
-    <h2>Pagamento Aprovado! 🎉</h2>
-    <p>Obrigado por seu pedido. Você receberá um email de confirmação em breve.</p>
-    <p>Código de rastreio: <strong id="trackingCode">LX000000</strong></p>
-    <a href="index.html" class="btn">Voltar ao início</a>
+    <h2 data-translate="paymentSuccess">Payment Successful! 🎉</h2>
+    <p data-translate="thankYou">Thank you for your order. You will receive a confirmation email shortly.</p>
+    <p data-translate="trackingCode">Tracking Code: <strong id="trackingCode">LX000000</strong></p>
+    <a href="index.html" class="btn" data-translate="backHome">Back to Home</a>
   </section>
 
+  <footer class="footer">
+    <div class="section" style="color:#fff;">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact Us</h3>
+          <p>Phone: +61 400 000 000</p>
+          <p>Email: hello@luxyberry.com</p>
+          <p>Address: Logan City, QLD, Australia</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#tracking">Tracking</a></li>
+            <li><a href="#">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://www.instagram.com/_luxyberry" target="_blank">📷 Instagram</a>
+            <a href="https://wa.me/61400000000" target="_blank">💬 WhatsApp</a>
+          </div>
+        </div>
+        <div>
+          <h3>Newsletter</h3>
+          <p>Subscribe for updates and special offers</p>
+          <input type="email" placeholder="Your email" style="width: 100%; padding: 8px; margin: 8px 0; border: none; border-radius: 4px;">
+          <button class="btn" style="width: 100%;">Subscribe</button>
+        </div>
+      </div>
+      <p style="margin-top:12px; font-size:13px; color:#ccb9a5;">© 2026 _luxyberry. All rights reserved. Developed by <a href="https://github.com/JuniorSilva88" target="_blank" style="color:#ffd6e4;">JuniorSilva88</a>.</p>
+    </div>
+  </footer>
+
   <script>
-    // Gerar código de rastreio (pode vir do backend)
+    // Generate tracking code
     document.getElementById('trackingCode').textContent = 'LX' + Math.floor(100000 + Math.random() * 899999);
+
+    function toggleMenu() {
+      const links = document.querySelector('.links');
+      links.classList.toggle('show');
+    }
   </script>
+
+  <script src="js/script.js"></script>
+  <script src="js/translation.js"></script>
+
 </body>
+
 </html>
