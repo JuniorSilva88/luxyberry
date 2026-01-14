@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </head>
 
@@ -61,35 +66,29 @@
         </div>
     </section>
 
-<!-- PRODUTOS -->
+    <!-- PRODUCTS -->
     <section id="products" class="section">
         <h2>Products</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Boxes</h3>
-                <p>Small, Medium, Large, XL e Party Pack</p>
+
+        <!-- Swiper container -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="assets/berryprincipal.jpeg" alt="Small Box"></div>
+                <div class="swiper-slide"><img src="assets/box-medium.jpg" alt="Medium Box"></div>
+                <div class="swiper-slide"><img src="assets/box-large.jpg" alt="Large Box"></div>
+                <div class="swiper-slide"><img src="assets/box-xl.jpg" alt="XL Box"></div>
+                <div class="swiper-slide"><img src="assets/box-party.jpg" alt="Party Pack"></div>
             </div>
-            <div class="card">
-                <h3>Chocolates</h3>
-                <p>Milk, Dark, White e Assortment</p>
-            </div>
-            <div class="card">
-                <h3>Toppings</h3>
-                <p>Sprinkles,
-                    pearl candies,
-                    nuts,
-                    mini oreo,
-                    coconut,
-                    citrus,
-                    pistachio,
-                    dried berries,
-                    gold leaf,
-                    sugar crystals,
-                    flake,
-                    lotus biscoff</p>
-            </div>
+
+            <!-- Pagination (dots) -->
+            <div class="swiper-pagination"></div>
+
+            <!-- Navigation arrows -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </section>
+
 
     <!-- MONTE SUA CAIXA -->
     <section id="build" class="section build-box">

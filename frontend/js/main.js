@@ -122,43 +122,25 @@ function updateCartUI() {
 }
 
 /* ================================
-   REMOVE ITEM
-   ================================ */
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-}
-
-/* ================================
-   LUXYBERRY — STRIPE CHECKOUT
+   CHECKOUT
    ================================ */
 
 async function checkout() {
-  if (!cart || cart.length === 0) {
-    alert("Seu carrinho está vazio.");
-    return;
-  }
-
-  const order = {
-    items: cart.map(item => ({
-      name: `LuxyBerry Box ${item.size.toUpperCase()}`,
-      price: Number((item.total / item.quantity).toFixed(2)),
-      quantity: item.quantity
-    }))
-  };
-
   try {
-    const response = await fetch(
-      "https://luxyberry.onrender.com/checkout",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(order)
-      }
-    );
+    // pega o último pedido do carrinho
+    const order = cart[cart.length - 1];
+    if (!order) {
+      alert("Seu carrinho está vazio.");
+      return;
+    }
+
+    const response = await fetch("https://luxyberry.onrender.com/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(order)
+    });
 
     if (!response.ok) {
       throw new Error("Falha ao iniciar pagamento");
@@ -178,7 +160,6 @@ async function checkout() {
   }
 }
 
-
 /* ================================
    TOAST — PREMIUM FEEDBACK
    ================================ */
@@ -197,6 +178,7 @@ function showToast(message) {
     toast.addEventListener("transitionend", () => toast.remove());
   }, 2600);
 }
+
 /* ================================
    MOBILE MENU
    ================================ */
@@ -216,4 +198,3 @@ navLinks.querySelectorAll("a").forEach(link => {
     navLinks.classList.remove("open");
   });
 });
-

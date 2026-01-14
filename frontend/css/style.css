@@ -37,7 +37,6 @@ header {
     align-items: center;
 }
 
-
 .brand {
     display: flex;
     gap: 10px;
@@ -85,34 +84,29 @@ header {
     color: var(--red);
 }
 
+/* =========================
+   SOCIAL LINKS
+   ========================= */
+
 .social-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-weight: 600;
     text-decoration: none;
-    transition: color .3s ease, transform .3s ease;
-    color: #fff;
-    /* força branco */
+    transition: transform .3s ease, opacity .3s ease;
+    color: #fff; /* texto branco */
 }
 
 .social-link i {
     font-size: 1.2rem;
-    color: #fff;
-    /* ícone branco */
-}
-
-/* remove cores específicas */
-.social-link.instagram,
-.social-link.whatsapp {
-    color: #fff;
+    color: #fff; /* ícone branco */
 }
 
 .social-link:hover {
     transform: translateY(-2px);
     opacity: 0.85;
 }
-
 
 /* =========================
    HERO
@@ -186,6 +180,32 @@ header {
     padding: 22px;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+.grid .card img {
+    max-width: 50%;   /* limite de 50% */
+    display: block;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* =========================
+   SWIPER CAROUSEL
+   ========================= */
+
+.swiper {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+}
+
+.swiper-slide img {
+    max-width: 50%;   /* limite de 50% */
+    margin: auto;
+    border-radius: 12px;
 }
 
 /* =========================
@@ -263,6 +283,7 @@ header {
     padding: 18px;
     width: 300px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
+    z-index: 10; /* sobrepõe footer */
 }
 
 .cart-list {
@@ -324,6 +345,44 @@ header {
 }
 
 /* =========================
+   FOOTER
+   ========================= */
+
+.footer {
+    background: var(--red);
+    color: #fff;
+    padding: 20px;
+    width: 100%;
+    font-size: 0.9rem;
+    z-index: 5; /* menor que o carrinho */
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer a:hover {
+    opacity: 0.85;
+}
+
+.footer-contact p,
+.footer-info p {
+    margin: 4px 0;
+}
+
+/* =========================
    RESPONSIVE
    ========================= */
 
@@ -336,12 +395,39 @@ header {
     .grid {
         grid-template-columns: 1fr;
     }
+
+    .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-contact {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    .social-link i {
+        font-size: 1.6rem; /* ícones maiores no mobile */
+    }
 }
 
 @media (max-width: 600px) {
     .form-actions {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .cart {
+        width: 90%; /* carrinho ocupa mais espaço no mobile */
+        right: 5%;
+    }
+
+    .swiper-slide img,
+    .grid .card img {
+        max-width: 80%; /* imagens maiores no mobile */
     }
 }
 
@@ -369,86 +455,22 @@ header {
     transition: all .3s ease;
 }
 
-.hamburger span:nth-child(1) {
-    top: 0;
-}
-
-.hamburger span:nth-child(2) {
-    top: 9px;
-}
-
-.hamburger span:nth-child(3) {
-    top: 18px;
-}
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 9px; }
+.hamburger span:nth-child(3) { top: 18px; }
 
 /* Estado ativo (X) */
 .hamburger.active span:nth-child(1) {
     transform: rotate(45deg);
     top: 9px;
 }
-
 .hamburger.active span:nth-child(2) {
     opacity: 0;
 }
-
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg);
     top: 9px;
 }
-
-.footer {
-    background: var(--red);
-    color: #fff;
-    padding: 20px;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    font-size: 0.9rem;
-    z-index: 5;
-    /* menor que o carrinho */
-}
-
-.footer-inner {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.footer a {
-    color: #fff;
-    /* redes sociais brancas */
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.footer a:hover {
-    opacity: 0.85;
-}
-
-.footer-contact p,
-.footer-info p {
-    margin: 4px 0;
-}
-
-/* Carrinho sobrepõe o footer */
-.cart {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 18px;
-    width: 300px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
-    z-index: 10;
-    /* maior que o footer */
-}
-
-
 
 /* =========================
    MOBILE NAV
@@ -483,13 +505,6 @@ header {
 }
 
 @keyframes navFade {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
