@@ -1,211 +1,287 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>_luxyberry — Luxury Chocolate Strawberries</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>_luxyberry — Luxury Chocolate Strawberries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
-<header>
-  <div class="nav">
-    <div class="brand">
-      <img src="assets/logo-luxyberry.jpg" alt="LuxyBerry" />
-      LuxyBerry
-    </div>
+    <header>
+        <div class="nav">
+            <div class="brand">
+                <img src="assets/logo-luxyberry.jpg" alt="LuxyBerry" />
+                LuxyBerry
+            </div>
 
-    <nav class="links" id="navLinks">
-      <a href="#home">Início</a>
-      <a href="#products">Produtos</a>
-      <a href="#build">Monte sua caixa</a>
-      <a href="#delivery">Entrega</a>
-      <a href="#contact">Contato</a>
-    </nav>
+            <nav class="links" id="navLinks">
+                <a href="#home">Início</a>
+                <a href="#products">Produtos</a>
+                <a href="#build">Monte sua caixa</a>
+                <a href="#delivery">Entrega</a>
+                <a href="#contact">Contato</a>
+            </nav>
 
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-</header>
- 
-<!-- HERO -->
-<section id="home" class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <h1>Luxury chocolate strawberries</h1>
-      <p>Caixas artesanais feitas na manhã da entrega. Elegância, sabor e exclusividade.</p>
-      <div class="hero-actions">
-        <a href="#build" class="btn">Monte sua caixa</a>
-        <a href="#products" class="btn alt">Ver produtos</a>
-      </div>
-    </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
 
-    <div class="hero-card">
-      <img src="assets/berryprincipal.jpeg" alt="LuxyBerry">
-    </div>
-  </div>
-</section>
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Luxury chocolate strawberries<br>Luxury gifts made to impress</h1>
+                <p>
+                    Elegant and exclusive handcrafted boxes, made for special moments.
+                    Elegant and exclusive handcrafted boxes, made for special moments...
+                </p>
+                <div class="hero-actions">
+                    <a href="#build" class="btn">
+                        <i class="fas fa-gift"></i> Build Your Box
+                    </a>
+                    <a href="#products" class="btn alt">
+                        <i class="fas fa-box-open"></i> View Products
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="assets/berryprincipal.jpeg" alt="LuxyBerry">
+            </div>
+        </div>
+    </section>
 
 <!-- PRODUTOS -->
-<section id="products" class="section">
-  <h2>Produtos</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Caixas</h3>
-      <p>Small, Medium, Large, XL e Party Pack</p>
+    <section id="products" class="section">
+        <h2>Products</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Boxes</h3>
+                <p>Small, Medium, Large, XL e Party Pack</p>
+            </div>
+            <div class="card">
+                <h3>Chocolates</h3>
+                <p>Milk, Dark, White e Assortment</p>
+            </div>
+            <div class="card">
+                <h3>Toppings</h3>
+                <p>Sprinkles,
+                    pearl candies,
+                    nuts,
+                    mini oreo,
+                    coconut,
+                    citrus,
+                    pistachio,
+                    dried berries,
+                    gold leaf,
+                    sugar crystals,
+                    flake,
+                    lotus biscoff</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MONTE SUA CAIXA -->
+    <section id="build" class="section build-box">
+        <h2>Build Your Box</h2>
+
+        <form class="build-form">
+
+            <div class="form-row">
+                <label>Box Type</label>
+                <select id="boxSize">
+                    <option value="small">Small (6–8)</option>
+                    <option value="medium" selected>Medium (12–15)</option>
+                    <option value="large">Large (20–30)</option>
+
+                    <option value="party">Party Pack (100 or more)</option>
+                    <option value="miniChampagne">Mini Champanhe Box (6–8)</option>
+                    <option value="scarletHeart">Scarlet Heart (6–8)</option>
+                    <option value="rubyHeart">Ruby Heart (8–10)</option>
+                    <option value="luminousHeart">Luminous Heart (10–12)</option>
+                    <option value="grandHeart">Grand Heart (12–15)</option>
+                    <option value="whiteElegance">White Elegance (15)</option>
+                    <option value="sweetTreasure">Sweet Treasure (15)</option>
+                    <option value="goldenHeart">Golden Heart (10)</option>
+                    <option value="snowyTreasure">Snowy Treasure (8)</option>
+                    <option value="frostyDelight">Frosty Delight (6)</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Chocolate</label>
+                <select id="chocolate">
+                    <option>Milk</option>
+                    <option>Dark</option>
+                    <option>White</option>
+                    <option>Assorted</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Topping 1</label>
+                <select class="topping">
+                    <option value="">None</option>
+                    <option>Sprinkles</option>
+                    <option>Pearl Candies</option>
+                    <option>Nuts</option>
+                    <option>Mini Oreo</option>
+                    <option>Coconut</option>
+                    <option>Citrus</option>
+                    <option>Pistachio</option>
+                    <option>Dried Berries</option>
+                    <option>Gold Leaf</option>
+                    <option>Sugar Crystals</option>
+                    <option>Flake</option>
+                    <option>Lotus Biscoff</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Topping 2</label>
+                <select class="topping">
+                    <option value="">None</option>
+                    <option>Sprinkles</option>
+                    <option>Pearl Candies</option>
+                    <option>Nuts</option>
+                    <option>Mini Oreo</option>
+                    <option>Coconut</option>
+                    <option>Citrus</option>
+                    <option>Pistachio</option>
+                    <option>Dried Berries</option>
+                    <option>Gold Leaf</option>
+                    <option>Sugar Crystals</option>
+                    <option>Flake</option>
+                    <option>Lotus Biscoff</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Topping 3</label>
+                <select class="topping">
+                    <option value="">None</option>
+                    <option>Sprinkles</option>
+                    <option>Pearl Candies</option>
+                    <option>Nuts</option>
+                    <option>Mini Oreo</option>
+                    <option>Coconut</option>
+                    <option>Citrus</option>
+                    <option>Pistachio</option>
+                    <option>Dried Berries</option>
+                    <option>Gold Leaf</option>
+                    <option>Sugar Crystals</option>
+                    <option>Flake</option>
+                    <option>Lotus Biscoff</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Order notes</label>
+                <input id="notes" type="text" placeholder="Preferences, colors, card message…" />
+            </div>
+
+            <div class="form-row">
+                <label>Delivery date</label>
+                <input id="deliveryDate" type="date" />
+            </div>
+
+            <div class="form-row">
+                <label>Region</label>
+                <select id="region">
+                    <option value="0">Logan City (up to 10km)</option>
+                    <option value="10">Brisbane (+A$10)</option>
+                    <option value="15">Gold Coast (+A$15)</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>Number of boxes</label>
+                <input id="quantity" type="number" min="1" value="1" />
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn" onclick="addBoxToCart()">
+                    Add to cart
+                </button>
+                <span id="estimate" class="badge">Estimate: A$ 0.00</span>
+            </div>
+
+            <p class="note">
+                Orders require minimum 1 week advance; we produce on delivery morning.
+            </p>
+
+        </form>
+    </section>
+
+    <!-- DELIVERY -->
+    <section id="delivery" class="section">
+        <h2>Delivery You Can Trust</h2>
+        <div class="grid">
+            <div class="card">
+                <p>Orders require a minimum of 7 days’ notice.</p>
+            </div>
+            <div class="card">
+                <p>Delivery available in Logan City, Brisbane and Gold Coast.</p>
+            </div>
+            <div class="card">
+                <p>Made fresh on the morning of delivery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="footer">
+        <div class="footer-inner">
+            <div class="footer-contact">
+                <p>
+                    <a href="https://www.instagram.com/_luxyberry/" target="_blank" rel="noopener noreferrer"
+                        class="social-link instagram">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                </p>
+                <p>
+                    <a href="https://wa.me/61467387719?text=Hello%20LuxyBerry%2C%20I%20would%20like%20to%20place%20an%20order"
+                        target="_blank" rel="noopener noreferrer" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <p>© <span id="year"></span> LuxyBerry — All rights reserved</p>
+                <p>
+                    Developed by
+                    <a href="https://github.com/JuniorSilva88" target="_blank" rel="noopener noreferrer">
+                        Junior Silva
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CARRINHO -->
+    <div class="cart" id="cart">
+        <h3>Seu pedido</h3>
+        <div id="cartItems"></div>
+        <span id="cartTotal" class="badge">Total: A$ 0.00</span>
+        <button class="btn" onclick="checkout()">Finalizar pedido</button>
     </div>
-    <div class="card">
-      <h3>Chocolates</h3>
-      <p>Milk, Dark, White e Assortment</p>
-    </div>
-    <div class="card">
-      <h3>Toppings</h3>
-      <p>Pistache, Lotus, Gold Leaf e mais</p>
-    </div>
-  </div>
-</section>
 
-<!-- MONTE SUA CAIXA -->
-<section id="build" class="section build-box">
-  <h2>Monte sua caixa</h2>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
-  <form class="build-form">
-
-    <div class="form-row">
-      <label>Box size</label>
-      <select id="boxSize">
-        <option value="small">Small (8–10)</option>
-        <option value="medium" selected>Medium (12–15)</option>
-        <option value="large">Large (18–20)</option>
-        <option value="xl">Extra Large (24–30)</option>
-        <option value="party">Party Pack</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Chocolate</label>
-      <select id="chocolate">
-        <option>Milk</option>
-        <option>Dark</option>
-        <option>White</option>
-        <option>Assorted</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Topping 1</label>
-      <select class="topping">
-        <option value="">None</option>
-        <option>Pistachio</option>
-        <option>Lotus Biscoff</option>
-        <option>Dried Berries</option>
-        <option>Gold Leaf</option>
-        <option>Sugar Crystals</option>
-        <option>Chocolate Flakes</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Topping 2</label>
-      <select class="topping">
-        <option value="">None</option>
-        <option>Pistachio</option>
-        <option>Lotus Biscoff</option>
-        <option>Dried Berries</option>
-        <option>Gold Leaf</option>
-        <option>Sugar Crystals</option>
-        <option>Chocolate Flakes</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Topping 3</label>
-      <select class="topping">
-        <option value="">None</option>
-        <option>Pistachio</option>
-        <option>Lotus Biscoff</option>
-        <option>Dried Berries</option>
-        <option>Gold Leaf</option>
-        <option>Sugar Crystals</option>
-        <option>Chocolate Flakes</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Order notes</label>
-      <input id="notes" type="text" placeholder="Preferences, colors, card message…" />
-    </div>
-
-    <div class="form-row">
-      <label>Delivery date</label>
-      <input id="deliveryDate" type="date" />
-    </div>
-
-    <div class="form-row">
-      <label>Region</label>
-      <select id="region">
-        <option value="0">Logan City (up to 10km)</option>
-        <option value="10">Brisbane (+A$10)</option>
-        <option value="15">Gold Coast (+A$15)</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Number of boxes</label>
-      <input id="quantity" type="number" min="1" value="1" />
-    </div>
-
-    <div class="form-actions">
-      <button type="button" class="btn" onclick="addBoxToCart()">
-        Add to cart
-      </button>
-      <span id="estimate" class="badge">Estimate: A$ 0.00</span>
-    </div>
-
-    <p class="note">
-      Orders require minimum 1 week advance; we produce on delivery morning.
-    </p>
-
-  </form>
-</section>
-
-<!-- ENTREGA -->
-<section id="delivery" class="section">
-  <h2>Entrega & Confiança</h2>
-  <div class="grid">
-    <div class="card">
-      <p>Pedidos com 7 dias de antecedência.</p>
-    </div>
-    <div class="card">
-      <p>Entrega Logan City, Brisbane e Gold Coast.</p>
-    </div>
-    <div class="card">
-      <p>Produzido na manhã da entrega.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section id="contact" class="section">
-  <h2>Contato</h2>
-  <div class="card">
-    <p>Instagram: @_luxyberry</p>
-    <p>WhatsApp: +61 400 000 000</p>
-  </div>
-</section>
-
-<!-- CARRINHO -->
-<div class="cart" id="cart">
-  <h3>Seu pedido</h3>
-  <div id="cartItems"></div>
-  <span id="cartTotal" class="badge">Total: A$ 0.00</span>
-  <button class="btn" onclick="checkout()">Finalizar pedido</button>
-</div>
-
-<script src="js/main.js"></script>
 </body>
+
 </html>

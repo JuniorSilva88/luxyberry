@@ -11,7 +11,17 @@ const boxPrices = {
   medium: 59,
   large: 95,
   xl: 145,
-  party: 260
+  party: 260,
+  miniChampagne: 40,
+  scarletHeart: 42,
+  rubyHeart: 48,
+  luminousHeart: 55,
+  grandHeart: 65,
+  whiteElegance: 70,
+  sweetTreasure: 70,
+  goldenHeart: 50,
+  snowyTreasure: 45,
+  frostyDelight: 40
 };
 
 /* ================================
@@ -206,3 +216,4 @@ navLinks.querySelectorAll("a").forEach(link => {
     navLinks.classList.remove("open");
   });
 });
+
