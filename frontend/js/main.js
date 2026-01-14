@@ -121,32 +121,50 @@ function removeFromCart(index) {
 }
 
 /* ================================
-   CHECKOUT (STRIPE PLACEHOLDER)
+   LUXYBERRY — STRIPE CHECKOUT
    ================================ */
 
 async function checkout() {
-  if (!cart.length) {
-    alert("Cart is empty");
+  if (!cart || cart.length === 0) {
+    alert("Seu carrinho está vazio.");
     return;
   }
 
+  const order = {
+    items: cart.map(item => ({
+      name: `LuxyBerry Box ${item.size.toUpperCase()}`,
+      price: Number((item.total / item.quantity).toFixed(2)),
+      quantity: item.quantity
+    }))
+  };
+
   try {
-    const res = await fetch("http://localhost:4242/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart })
-    });
+    const response = await fetch(
+      "https://luxyberry.onrender.com/checkout",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(order)
+      }
+    );
 
-    const data = await res.json();
-
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert("Stripe error");
+    if (!response.ok) {
+      throw new Error("Falha ao iniciar pagamento");
     }
+
+    const data = await response.json();
+
+    if (!data.url) {
+      throw new Error("URL de pagamento não recebida");
+    }
+
+    window.location.href = data.url;
+
   } catch (err) {
-    console.error(err);
-    alert("Payment unavailable");
+    console.error("Checkout error:", err);
+    alert("Erro ao conectar com o pagamento. Tente novamente.");
   }
 }
 
