@@ -25,15 +25,17 @@ const boxPrices = {
    (2) CALCULATE ESTIMATE
    ================================ */
 function calculateEstimate() {
-  const size = document.getElementById("boxSize").value;
-  const qty = parseInt(document.getElementById("quantity").value || 1, 10);
-  const regionFee = parseFloat(document.getElementById("region").value || 0);
+  const size = document.getElementById("boxSize")?.value;
+  const qty = parseInt(document.getElementById("quantity")?.value || 1, 10);
+  const regionFee = parseFloat(document.getElementById("region")?.value || 0);
 
   const base = boxPrices[size] || 0;
   const total = base * qty + regionFee;
 
-  document.getElementById("estimate").textContent =
-    `Estimate: A$ ${total.toFixed(2)}`;
+  const estimateEl = document.getElementById("estimate");
+  if (estimateEl) {
+    estimateEl.textContent = `Estimated total: A$ ${total.toFixed(2)}`;
+  }
 
   return total;
 }
@@ -50,24 +52,22 @@ function addBoxToCart() {
   const quantityEl = document.getElementById("quantity");
 
   const order = {
-    size: sizeEl ? sizeEl.value : "",
-    chocolate: chocolateEl ? chocolateEl.value : "",
+    size: sizeEl?.value || "",
+    chocolate: chocolateEl?.value || "",
     toppings: [...document.querySelectorAll(".topping")]
       .map(t => t.value)
       .filter(Boolean),
-    notes: notesEl ? notesEl.value : "",
-    deliveryDate: deliveryDateEl ? deliveryDateEl.value : "",
-    region: regionEl ? regionEl.options[regionEl.selectedIndex].text : "",
-    quantity: quantityEl ? Number(quantityEl.value) : 1,
+    notes: notesEl?.value || "",
+    deliveryDate: deliveryDateEl?.value || "",
+    region: regionEl?.value || "",
+    quantity: Number(quantityEl?.value || 1),
     total: calculateEstimate()
   };
 
   cart.push(order);
   updateCartUI();
 
-  const cartEl = document.getElementById("cart");
-  if (cartEl) cartEl.classList.remove("hidden");
-
+  document.getElementById("cart")?.classList.remove("hidden");
   showToast("Box added to cart");
 }
 
@@ -116,11 +116,15 @@ function updateCartUI() {
    ================================ */
 async function checkout() {
   try {
-    const order = cart[cart.length - 1];
-    if (!order) {
-      alert("Seu carrinho está vazio.");
+    if (cart.length === 0) {
+      alert("Your cart is currently empty.");
       return;
     }
+
+    const order = {
+      items: cart,
+      total: cart.reduce((sum, item) => sum + item.total, 0)
+    };
 
     const response = await fetch("https://luxyberry.onrender.com/checkout", {
       method: "POST",
@@ -128,20 +132,32 @@ async function checkout() {
       body: JSON.stringify(order)
     });
 
-    if (!response.ok) throw new Error("Falha ao iniciar pagamento");
+    if (!response.ok) {
+      throw new Error("Unable to start the payment process.");
+    }
 
-    const data = await response.json();
-    if (!data.url) throw new Error("URL de pagamento não recebida");
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error("Invalid server response.");
+    }
+
+    if (!data.url) {
+      throw new Error("Payment link was not received.");
+    }
 
     window.location.href = data.url;
   } catch (err) {
     console.error("Checkout error:", err);
-    alert("Erro ao conectar com o pagamento. Tente novamente.");
+    alert("We couldn’t connect to the payment service. Please try again.");
   }
 }
 
 /* ================================
-   (6) TOAST — PREMIUM FEEDBACK
+   (6) TOAST NOTIFICATIONS
    ================================ */
 function showToast(message) {
   const toast = document.createElement("div");
@@ -172,26 +188,31 @@ calculateEstimate();
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  navLinks.classList.toggle("open");
-});
-
-navLinks.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navLinks.classList.remove("open");
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navLinks.classList.toggle("open");
   });
-});
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("open");
+    });
+  });
+}
 
 /* ================================
    (9) SWIPER CAROUSEL — PRODUCTS
    ================================ */
 document.addEventListener("DOMContentLoaded", () => {
-  const swiper = new Swiper('.product-carousel', {
+  const carousel = document.querySelector(".product-carousel");
+  if (!carousel || typeof Swiper === "undefined") return;
+
+  new Swiper(carousel, {
     loop: true,
     autoplay: { delay: 3000, disableOnInteraction: false },
-    effect: 'coverflow',
+    effect: "coverflow",
     grabCursor: true,
     centeredSlides: true,
     slidesPerView: 3,
@@ -200,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
       stretch: 0,
       depth: 200,
       modifier: 2,
-      slideShadows: false,
+      slideShadows: false
     },
-    pagination: { el: '.swiper-pagination', clickable: true }
+    pagination: { el: ".swiper-pagination", clickable: true }
   });
 });
