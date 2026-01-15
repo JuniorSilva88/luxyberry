@@ -374,7 +374,7 @@ h2 {
    (15) FOOTER
    ========================================= */
 .footer {
-    background: var(--red); /* mesma cor do header */
+    background: var(--red);
     color: #fff;
     padding: 20px;
     width: 100%;
