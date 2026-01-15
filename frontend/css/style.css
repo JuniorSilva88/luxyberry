@@ -1,3 +1,6 @@
+/* =========================================
+   (1) ROOT VARIABLES
+   ========================================= */
 :root {
     --red: #8b1c2a;
     --gold: #c8a75a;
@@ -6,7 +9,9 @@
     --line-soft: #f0d6c5;
 }
 
-/* RESET */
+/* =========================================
+   (2) RESET
+   ========================================= */
 * {
     box-sizing: border-box;
 }
@@ -18,10 +23,9 @@ body {
     color: var(--ink);
 }
 
-/* =========================
-   HEADER / NAV
-   ========================= */
-
+/* =========================================
+   (3) HEADER / NAV
+   ========================================= */
 header {
     background: var(--red);
     color: #fff;
@@ -60,10 +64,19 @@ header {
     opacity: 0.85;
 }
 
-/* =========================
-   BUTTONS
-   ========================= */
+/* =========================================
+   (4) TITLES (H1 / H2)
+   ========================================= */
+h1,
+h2 {
+  font-weight: 700;
+  color: var(--ink);
+  text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.7); /* sombra dourada */
+}
 
+/* =========================================
+   (5) BUTTONS
+   ========================================= */
 .btn {
     background: var(--gold);
     border: none;
@@ -84,10 +97,9 @@ header {
     color: var(--red);
 }
 
-/* =========================
-   SOCIAL LINKS
-   ========================= */
-
+/* =========================================
+   (6) SOCIAL LINKS
+   ========================================= */
 .social-link {
     display: inline-flex;
     align-items: center;
@@ -95,12 +107,12 @@ header {
     font-weight: 600;
     text-decoration: none;
     transition: transform .3s ease, opacity .3s ease;
-    color: #fff; /* texto branco */
+    color: #fff;
 }
 
 .social-link i {
     font-size: 1.2rem;
-    color: #fff; /* ícone branco */
+    color: #fff;
 }
 
 .social-link:hover {
@@ -108,10 +120,9 @@ header {
     opacity: 0.85;
 }
 
-/* =========================
-   HERO
-   ========================= */
-
+/* =========================================
+   (7) HERO SECTION
+   ========================================= */
 .hero {
     padding: 80px 20px;
 }
@@ -149,10 +160,9 @@ header {
         0 0 0 1px rgba(200, 167, 90, .35);
 }
 
-/* =========================
-   SECTIONS
-   ========================= */
-
+/* =========================================
+   (8) SECTIONS
+   ========================================= */
 .section {
     padding: 80px 20px;
 }
@@ -163,10 +173,9 @@ header {
     font-size: 2rem;
 }
 
-/* =========================
-   GRID / CARDS
-   ========================= */
-
+/* =========================================
+   (9) GRID / CARDS
+   ========================================= */
 .grid {
     max-width: 1100px;
     margin: auto;
@@ -183,47 +192,65 @@ header {
 }
 
 .grid .card img {
-    max-width: 50%;   /* limite de 50% */
+    max-width: 50%;
     display: block;
     margin: auto;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
 }
 
-/* =========================
-   SWIPER CAROUSEL
-   ========================= */
-
-.swiper {
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+/* =========================================
+   (10) SWIPER CAROUSEL
+   ========================================= */
+.product-carousel {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 0;
 }
 
-.swiper-slide img {
-    max-width: 50%;   /* limite de 50% */
-    margin: auto;
-    border-radius: 12px;
+.product-carousel .swiper-slide {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* =========================
-   BUILD YOUR BOX
-   ========================= */
+.product-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
 
+.swiper-pagination-bullet {
+  background: var(--red);
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--gold);
+  opacity: 1;
+}
+
+/* =========================================
+   (11) BUILD YOUR BOX
+   ========================================= */
 .build-box {
-    max-width: 780px;
-    margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  margin: 40px auto;
+  max-width: 800px;
 }
 
 .build-form {
-    background: #fff;
-    padding: 32px;
-    border-radius: 20px;
-    border: 1px solid var(--line-soft);
-    display: grid;
-    gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-row {
@@ -252,7 +279,6 @@ header {
     background: #fff;
 }
 
-/* Ações */
 .form-actions {
     display: flex;
     align-items: center;
@@ -264,26 +290,28 @@ header {
     font-weight: 600;
 }
 
-/* Nota */
 .note {
     font-size: 0.8rem;
     opacity: 0.7;
 }
 
-/* =========================
-   CART
-   ========================= */
-
+/* =========================================
+   (12) CART
+   ========================================= */
 .cart {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 18px;
-    width: 300px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
-    z-index: 10; /* sobrepõe footer */
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  padding: 20px;
+  z-index: 1000;
+}
+
+.cart.hidden {
+  display: none;
 }
 
 .cart-list {
@@ -306,10 +334,9 @@ header {
     font-size: 1.2rem;
 }
 
-/* =========================
-   TOAST
-   ========================= */
-
+/* =========================================
+   (13) TOAST
+   ========================================= */
 .toast {
     position: fixed;
     bottom: 30px;
@@ -329,10 +356,9 @@ header {
     transform: translateX(-50%) translateY(0);
 }
 
-/* =========================
-   FADE-IN PREMIUM (JS)
-   ========================= */
-
+/* =========================================
+   (14) FADE-IN PREMIUM (JS)
+   ========================================= */
 .fade-init {
     opacity: 0;
     transform: translateY(20px);
@@ -344,12 +370,11 @@ header {
     transition: all .8s ease;
 }
 
-/* =========================
-   FOOTER
-   ========================= */
-
+/* =========================================
+   (15) FOOTER
+   ========================================= */
 .footer {
-    background: var(--red);
+    background: var(--red); /* mesma cor do header */
     color: #fff;
     padding: 20px;
     width: 100%;
@@ -382,10 +407,9 @@ header {
     margin: 4px 0;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
-
+/* =========================================
+   (16) RESPONSIVE
+   ========================================= */
 @media (max-width: 900px) {
     .hero-inner {
         grid-template-columns: 1fr;
@@ -431,10 +455,9 @@ header {
     }
 }
 
-/* =========================
-   HAMBURGER MENU
-   ========================= */
-
+/* =========================================
+   (17) HAMBURGER MENU
+   ========================================= */
 .hamburger {
     display: none;
     background: none;
@@ -464,22 +487,17 @@ header {
     transform: rotate(45deg);
     top: 9px;
 }
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
+.hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg);
     top: 9px;
 }
 
-/* =========================
-   MOBILE NAV
-   ========================= */
-
+/* =========================================
+   (18) MOBILE NAV
+   ========================================= */
 @media (max-width: 900px) {
-    .hamburger {
-        display: block;
-    }
+    .hamburger { display: block; }
 
     .links {
         position: absolute;
@@ -494,9 +512,7 @@ header {
         text-align: center;
     }
 
-    .links a {
-        font-size: 1.1rem;
-    }
+    .links a { font-size: 1.1rem; }
 
     .links.open {
         display: flex;
@@ -506,5 +522,5 @@ header {
 
 @keyframes navFade {
     from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }

@@ -1,10 +1,7 @@
 /* ================================
-   LUXYBERRY — BUILD YOUR BOX 
+   (1) STATE & PRICING
    ================================ */
-
-/* ================================
-   PRICING
-   ================================ */
+let cart = [];
 
 const boxPrices = {
   small: 35,
@@ -25,15 +22,8 @@ const boxPrices = {
 };
 
 /* ================================
-   STATE
+   (2) CALCULATE ESTIMATE
    ================================ */
-
-let cart = [];
-
-/* ================================
-   CALCULATE ESTIMATE
-   ================================ */
-
 function calculateEstimate() {
   const size = document.getElementById("boxSize").value;
   const qty = parseInt(document.getElementById("quantity").value || 1, 10);
@@ -49,43 +39,47 @@ function calculateEstimate() {
 }
 
 /* ================================
-   LISTENERS
+   (3) CART ACTIONS
    ================================ */
-
-["boxSize", "quantity", "region"].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener("change", calculateEstimate);
-});
-
-calculateEstimate();
-
-/* ================================
-   ADD TO CART
-   ================================ */
-
 function addBoxToCart() {
+  const sizeEl = document.getElementById("boxSize");
+  const chocolateEl = document.getElementById("chocolate");
+  const notesEl = document.getElementById("notes");
+  const deliveryDateEl = document.getElementById("deliveryDate");
+  const regionEl = document.getElementById("region");
+  const quantityEl = document.getElementById("quantity");
+
   const order = {
-    size: boxSize.value,
-    chocolate: chocolate.value,
+    size: sizeEl ? sizeEl.value : "",
+    chocolate: chocolateEl ? chocolateEl.value : "",
     toppings: [...document.querySelectorAll(".topping")]
       .map(t => t.value)
       .filter(Boolean),
-    notes: notes.value,
-    deliveryDate: deliveryDate.value,
-    region: region.options[region.selectedIndex].text,
-    quantity: parseInt(quantity.value, 10),
+    notes: notesEl ? notesEl.value : "",
+    deliveryDate: deliveryDateEl ? deliveryDateEl.value : "",
+    region: regionEl ? regionEl.options[regionEl.selectedIndex].text : "",
+    quantity: quantityEl ? Number(quantityEl.value) : 1,
     total: calculateEstimate()
   };
 
   cart.push(order);
   updateCartUI();
+
+  const cartEl = document.getElementById("cart");
+  if (cartEl) cartEl.classList.remove("hidden");
+
   showToast("Box added to cart");
 }
 
-/* ================================
-   CART UI
-   ================================ */
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+  showToast("Item removed from cart");
+}
 
+/* ================================
+   (4) CART UI
+   ================================ */
 function updateCartUI() {
   const cartBox = document.querySelector(".cart");
   if (!cartBox) return;
@@ -100,34 +94,28 @@ function updateCartUI() {
   cartBox.innerHTML = `
     <h4>Your Order</h4>
     <ul class="cart-list">
-      ${cart
-        .map((item, i) => {
-          grandTotal += item.total;
-          return `
-            <li>
-              <span>${item.size.toUpperCase()} box × ${item.quantity}</span>
-              <strong>A$ ${item.total.toFixed(2)}</strong>
-              <button onclick="removeFromCart(${i})">×</button>
-            </li>`;
-        })
-        .join("")}
+      ${cart.map((item, i) => {
+        grandTotal += item.total;
+        return `
+          <li>
+            <span>${item.size.toUpperCase()} box × ${item.quantity}</span>
+            <strong>A$ ${item.total.toFixed(2)}</strong>
+            <button onclick="removeFromCart(${i})">×</button>
+          </li>`;
+      }).join("")}
     </ul>
-
     <div class="cart-total">
       <strong>Total:</strong> A$ ${grandTotal.toFixed(2)}
     </div>
-
     <button class="btn" onclick="checkout()">Checkout</button>
   `;
 }
 
 /* ================================
-   CHECKOUT
+   (5) CHECKOUT
    ================================ */
-
 async function checkout() {
   try {
-    // pega o último pedido do carrinho
     const order = cart[cart.length - 1];
     if (!order) {
       alert("Seu carrinho está vazio.");
@@ -136,24 +124,16 @@ async function checkout() {
 
     const response = await fetch("https://luxyberry.onrender.com/checkout", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order)
     });
 
-    if (!response.ok) {
-      throw new Error("Falha ao iniciar pagamento");
-    }
+    if (!response.ok) throw new Error("Falha ao iniciar pagamento");
 
     const data = await response.json();
-
-    if (!data.url) {
-      throw new Error("URL de pagamento não recebida");
-    }
+    if (!data.url) throw new Error("URL de pagamento não recebida");
 
     window.location.href = data.url;
-
   } catch (err) {
     console.error("Checkout error:", err);
     alert("Erro ao conectar com o pagamento. Tente novamente.");
@@ -161,16 +141,14 @@ async function checkout() {
 }
 
 /* ================================
-   TOAST — PREMIUM FEEDBACK
+   (6) TOAST — PREMIUM FEEDBACK
    ================================ */
-
 function showToast(message) {
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.textContent = message;
 
   document.body.appendChild(toast);
-
   requestAnimationFrame(() => toast.classList.add("show"));
 
   setTimeout(() => {
@@ -180,9 +158,17 @@ function showToast(message) {
 }
 
 /* ================================
-   MOBILE MENU
+   (7) LISTENERS
    ================================ */
+["boxSize", "quantity", "region"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("change", calculateEstimate);
+});
+calculateEstimate();
 
+/* ================================
+   (8) MOBILE MENU
+   ================================ */
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
@@ -191,10 +177,31 @@ hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("open");
 });
 
-/* Fecha o menu ao clicar em um link */
 navLinks.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     hamburger.classList.remove("active");
     navLinks.classList.remove("open");
+  });
+});
+
+/* ================================
+   (9) SWIPER CAROUSEL — PRODUCTS
+   ================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  const swiper = new Swiper('.product-carousel', {
+    loop: true,
+    autoplay: { delay: 3000, disableOnInteraction: false },
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 200,
+      modifier: 2,
+      slideShadows: false,
+    },
+    pagination: { el: '.swiper-pagination', clickable: true }
   });
 });

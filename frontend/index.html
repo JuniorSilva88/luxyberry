@@ -26,11 +26,11 @@
             </div>
 
             <nav class="links" id="navLinks">
-                <a href="#home">Início</a>
-                <a href="#products">Produtos</a>
-                <a href="#build">Monte sua caixa</a>
-                <a href="#delivery">Entrega</a>
-                <a href="#contact">Contato</a>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#build">Build Your Box</a>
+                <a href="#delivery">Delivery</a>
+                <a href="#contact">Contact</a>
             </nav>
 
             <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -48,10 +48,9 @@
                 <h1>Luxury chocolate strawberries<br>Luxury gifts made to impress</h1>
                 <p>
                     Elegant and exclusive handcrafted boxes, made for special moments.
-                    Elegant and exclusive handcrafted boxes, made for special moments...
                 </p>
                 <div class="hero-actions">
-                    <a href="#build" class="btn">
+                    <a href="#build" class="btn alt">
                         <i class="fas fa-gift"></i> Build Your Box
                     </a>
                     <a href="#products" class="btn alt">
@@ -69,28 +68,22 @@
     <!-- PRODUCTS -->
     <section id="products" class="section">
         <h2>Products</h2>
-
-        <!-- Swiper container -->
-        <div class="swiper">
+        <div class="swiper product-carousel">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="assets/berryprincipal.jpeg" alt="Small Box"></div>
-                <div class="swiper-slide"><img src="assets/box-medium.jpg" alt="Medium Box"></div>
-                <div class="swiper-slide"><img src="assets/box-large.jpg" alt="Large Box"></div>
-                <div class="swiper-slide"><img src="assets/box-xl.jpg" alt="XL Box"></div>
-                <div class="swiper-slide"><img src="assets/box-party.jpg" alt="Party Pack"></div>
+                <div class="swiper-slide"><img src="assets/caixabranca.jpeg" alt="Caixa Branca"></div>
+                <div class="swiper-slide"><img src="assets/iloveyou.jpeg" alt="I Love You Box"></div>
+                <div class="swiper-slide"><img src="assets/canecas.jpeg" alt="Canecas"></div>
+                <div class="swiper-slide"><img src="assets/tres-caixas.jpeg" alt="Três Caixas"></div>
+                <div class="swiper-slide"><img src="assets/coracao.jpeg" alt="Coração Box"></div>
+                <div class="swiper-slide"><img src="assets/minichampanhebox.jpeg" alt="Mini Champagne Box"></div>
+                <div class="swiper-slide"><img src="assets/buque.jpeg" alt="Buquê"></div>
             </div>
-
-            <!-- Pagination (dots) -->
             <div class="swiper-pagination"></div>
-
-            <!-- Navigation arrows -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
         </div>
     </section>
 
 
-    <!-- MONTE SUA CAIXA -->
+    <!-- BUILD YOUR BOX -->
     <section id="build" class="section build-box">
         <h2>Build Your Box</h2>
 
@@ -99,88 +92,89 @@
             <div class="form-row">
                 <label>Box Type</label>
                 <select id="boxSize">
-                    <option value="small">Small (6–8)</option>
-                    <option value="medium" selected>Medium (12–15)</option>
-                    <option value="large">Large (20–30)</option>
-
-                    <option value="party">Party Pack (100 or more)</option>
-                    <option value="miniChampagne">Mini Champanhe Box (6–8)</option>
-                    <option value="scarletHeart">Scarlet Heart (6–8)</option>
-                    <option value="rubyHeart">Ruby Heart (8–10)</option>
-                    <option value="luminousHeart">Luminous Heart (10–12)</option>
-                    <option value="grandHeart">Grand Heart (12–15)</option>
-                    <option value="whiteElegance">White Elegance (15)</option>
-                    <option value="sweetTreasure">Sweet Treasure (15)</option>
-                    <option value="goldenHeart">Golden Heart (10)</option>
-                    <option value="snowyTreasure">Snowy Treasure (8)</option>
-                    <option value="frostyDelight">Frosty Delight (6)</option>
+                    <option value="small"><i class="fas fa-box"></i> Small (6–8)</option>
+                    <option value="medium" selected><i class="fas fa-box"></i> Medium (12–15)</option>
+                    <option value="large"><i class="fas fa-box"></i> Large (20–30)</option>
+                    <option value="extraLarge"><i class="fas fa-box-open"></i> Extra Large (40–50)</option>
+                    <option value="party"><i class="fas fa-glass-cheers"></i> Party Pack (100+)</option>
+                    <option value="miniChampagne"><i class="fas fa-wine-bottle"></i> Mini Champanhe Box (6–8)</option>
+                    <option value="scarletHeart"><i class="fas fa-heart"></i> Scarlet Heart (6–8)</option>
+                    <option value="rubyHeart"><i class="fas fa-gem"></i> Ruby Heart (8–10)</option>
+                    <option value="luminousHeart"><i class="fas fa-star"></i> Luminous Heart (10–12)</option>
+                    <option value="grandHeart"><i class="fas fa-heart"></i> Grand Heart (12–15)</option>
+                    <option value="whiteElegance"><i class="fas fa-snowflake"></i> White Elegance (15)</option>
+                    <option value="sweetTreasure"><i class="fas fa-candy-cane"></i> Sweet Treasure (15)</option>
+                    <option value="goldenHeart"><i class="fas fa-crown"></i> Golden Heart (10)</option>
+                    <option value="snowyTreasure"><i class="fas fa-icicles"></i> Snowy Treasure (8)</option>
+                    <option value="frostyDelight"><i class="fas fa-icicles"></i> Frosty Delight (6)</option>
                 </select>
             </div>
 
             <div class="form-row">
                 <label>Chocolate</label>
                 <select id="chocolate">
-                    <option>Milk</option>
-                    <option>Dark</option>
-                    <option>White</option>
-                    <option>Assorted</option>
+                    <option><i class="fas fa-cookie-bite"></i> Milk</option>
+                    <option><i class="fas fa-cookie-bite"></i> Dark</option>
+                    <option><i class="fas fa-cookie-bite"></i> White</option>
+                    <option><i class="fas fa-cookie-bite"></i> Assorted</option>
                 </select>
             </div>
 
             <div class="form-row">
                 <label>Topping 1</label>
                 <select class="topping">
-                    <option value="">None</option>
-                    <option>Sprinkles</option>
-                    <option>Pearl Candies</option>
-                    <option>Nuts</option>
-                    <option>Mini Oreo</option>
-                    <option>Coconut</option>
-                    <option>Citrus</option>
-                    <option>Pistachio</option>
-                    <option>Dried Berries</option>
-                    <option>Gold Leaf</option>
-                    <option>Sugar Crystals</option>
-                    <option>Flake</option>
-                    <option>Lotus Biscoff</option>
+                    <option value="">🚫 None</option>
+                    <option><i class="fas fa-star"></i> Sprinkles</option>
+                    <option><i class="fas fa-circle"></i> Pearl Candies</option>
+                    <option><i class="fas fa-seedling"></i> Nuts</option>
+                    <option><i class="fas fa-cookie"></i> Mini Oreo</option>
+                    <option><i class="fas fa-apple-alt"></i> Coconut</option>
+                    <option><i class="fas fa-lemon"></i> Citrus</option>
+                    <option><i class="fas fa-seedling"></i> Pistachio</option>
+                    <option><i class="fas fa-berry"></i> Dried Berries</option>
+                    <option><i class="fas fa-crown"></i> Gold Leaf</option>
+                    <option><i class="fas fa-gem"></i> Sugar Crystals</option>
+                    <option><i class="fas fa-cookie-bite"></i> Flake</option>
+                    <option><i class="fas fa-cookie"></i> Lotus Biscoff</option>
                 </select>
             </div>
+
 
             <div class="form-row">
                 <label>Topping 2</label>
                 <select class="topping">
-                    <option value="">None</option>
-                    <option>Sprinkles</option>
-                    <option>Pearl Candies</option>
-                    <option>Nuts</option>
-                    <option>Mini Oreo</option>
-                    <option>Coconut</option>
-                    <option>Citrus</option>
-                    <option>Pistachio</option>
-                    <option>Dried Berries</option>
-                    <option>Gold Leaf</option>
-                    <option>Sugar Crystals</option>
-                    <option>Flake</option>
-                    <option>Lotus Biscoff</option>
+                    <option value="">🚫 None</option>
+                    <option><i class="fas fa-star"></i> Sprinkles</option>
+                    <option><i class="fas fa-circle"></i> Pearl Candies</option>
+                    <option><i class="fas fa-seedling"></i> Nuts</option>
+                    <option><i class="fas fa-cookie"></i> Mini Oreo</option>
+                    <option><i class="fas fa-apple-alt"></i> Coconut</option>
+                    <option><i class="fas fa-lemon"></i> Citrus</option>
+                    <option><i class="fas fa-seedling"></i> Pistachio</option>
+                    <option><i class="fas fa-berry"></i> Dried Berries</option>
+                    <option><i class="fas fa-crown"></i> Gold Leaf</option>
+                    <option><i class="fas fa-gem"></i> Sugar Crystals</option>
+                    <option><i class="fas fa-cookie-bite"></i> Flake</option>
+                    <option><i class="fas fa-cookie"></i> Lotus Biscoff</option>
                 </select>
             </div>
 
             <div class="form-row">
                 <label>Topping 3</label>
                 <select class="topping">
-                    <option value="">None</option>
-                    <option>Sprinkles</option>
-                    <option>Pearl Candies</option>
-                    <option>Nuts</option>
-                    <option>Mini Oreo</option>
-                    <option>Coconut</option>
-                    <option>Citrus</option>
-                    <option>Pistachio</option>
-                    <option>Dried Berries</option>
-                    <option>Gold Leaf</option>
-                    <option>Sugar Crystals</option>
-                    <option>Flake</option>
-                    <option>Lotus Biscoff</option>
+                    <option value="">🚫 None</option>
+                    <option><i class="fas fa-star"></i> Sprinkles</option>
+                    <option><i class="fas fa-circle"></i> Pearl Candies</option>
+                    <option><i class="fas fa-seedling"></i> Nuts</option>
+                    <option><i class="fas fa-cookie"></i> Mini Oreo</option>
+                    <option><i class="fas fa-apple-alt"></i> Coconut</option>
+                    <option><i class="fas fa-lemon"></i> Citrus</option>
+                    <option><i class="fas fa-seedling"></i> Pistachio</option>
+                    <option><i class="fas fa-berry"></i> Dried Berries</option>
+                    <option><i class="fas fa-crown"></i> Gold Leaf</option>
+                    <option><i class="fas fa-gem"></i> Sugar Crystals</option>
+                    <option><i class="fas fa-cookie-bite"></i> Flake</option>
+                    <option><i class="fas fa-cookie"></i> Lotus Biscoff</option>
                 </select>
             </div>
 
@@ -269,12 +263,12 @@
     </footer>
 
     <!-- CARRINHO -->
-    <div class="cart" id="cart">
-        <h3>Seu pedido</h3>
-        <div id="cartItems"></div>
-        <span id="cartTotal" class="badge">Total: A$ 0.00</span>
-        <button class="btn" onclick="checkout()">Finalizar pedido</button>
+    <div id="cart" class="cart hidden">
+        <h3>Your Cart</h3>
+        <ul id="cartItems"></ul>
+        <button class="btn">Checkout</button>
     </div>
+
 
     <script src="js/main.js"></script>
     <script>
