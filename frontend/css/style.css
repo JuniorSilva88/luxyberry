@@ -29,7 +29,7 @@ body {
 header {
     background: var(--red);
     color: #fff;
-    padding: 16px 20px;
+    padding: 25px 25px;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -43,14 +43,18 @@ header {
 
 .brand {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 1.4rem;
 }
 
 .brand img {
-    width: 36px;
+    width: 56px;
     border-radius: 50%;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, .2),
+        0 0 0 2px rgba(200, 167, 90, .5);
 }
 
 .links a {
@@ -153,7 +157,7 @@ h2 {
 }
 
 .hero-card img {
-    max-width: 80%;
+    max-width: 60%;
     border-radius: 22px;
     box-shadow:
         0 30px 60px rgba(0, 0, 0, .25),
