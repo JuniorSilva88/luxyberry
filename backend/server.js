@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const checkoutRoute = require("./routes/checkout");
 
@@ -9,9 +10,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+/* ================================
+   API
+   ================================ */
 app.use("/api/checkout", checkoutRoute);
 
-const PORT = 4242;
-app.listen(PORT, () =>
-  console.log(`Stripe backend running on port ${PORT}`)
-);
+/* ================================
+   FRONTEND (STATIC)
+   ================================ */
+const frontendPath = path.join(__dirname, "../frontend");
+
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+/* ================================
+   SERVER
+   ================================ */
+const PORT = process.env.PORT || 4242;
+app.listen(PORT, () => {
+  console.log(`LuxyBerry running on port ${PORT}`);
+});
