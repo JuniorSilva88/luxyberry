@@ -18,10 +18,11 @@ app.use("/api/checkout", checkoutRoute);
 /* ================================
    FRONTEND (STATIC)
    ================================ */
-const frontendPath = path.join(__dirname, "../frontend");
+const frontendPath = path.join(__dirname, "..", "frontend");
 
 app.use(express.static(frontendPath));
 
+// Qualquer rota que não seja API carrega o frontend
 app.get("*", (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
@@ -30,6 +31,7 @@ app.get("*", (req, res) => {
    SERVER
    ================================ */
 const PORT = process.env.PORT || 4242;
+
 app.listen(PORT, () => {
   console.log(`LuxyBerry running on port ${PORT}`);
 });
