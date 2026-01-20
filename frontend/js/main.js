@@ -51,17 +51,32 @@ function addBoxToCart() {
   const regionEl = document.getElementById("region");
   const quantityEl = document.getElementById("quantity");
 
+  // ✅ normaliza tamanhos (HTML tem extraLarge, pricing usa xl)
+  let size = sizeEl?.value || "";
+  if (size === "extraLarge") size = "xl";
+
+  const qty = Number(quantityEl?.value || 1);
+  const deliveryFee = Number(regionEl?.value || 0);
+  const regionLabel = regionEl?.options?.[regionEl.selectedIndex]?.text || "";
+
+  const pricePer = Number(boxPrices[size] || 0);
+  const total = (pricePer * qty) + deliveryFee;
+
   const order = {
-    size: sizeEl?.value || "",
+    size,
     chocolate: chocolateEl?.value || "",
-    toppings: [...document.querySelectorAll(".topping")]
-      .map(t => t.value)
-      .filter(Boolean),
+    toppings: [...document.querySelectorAll(".topping")].map(t => t.value).filter(Boolean),
     notes: notesEl?.value || "",
     deliveryDate: deliveryDateEl?.value || "",
-    region: regionEl?.value || "",
-    quantity: Number(quantityEl?.value || 1),
-    total: calculateEstimate()
+    quantity: qty,
+
+    // ✅ campos úteis p/ Stripe e backend
+    pricePer,
+    deliveryFee,
+    regionLabel,
+
+    // ✅ total final desse item (inclui delivery fee)
+    total
   };
 
   cart.push(order);
@@ -69,12 +84,6 @@ function addBoxToCart() {
 
   document.getElementById("cart")?.classList.remove("hidden");
   showToast("Box added to cart");
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-  showToast("Item removed from cart");
 }
 
 /* ================================
@@ -95,14 +104,14 @@ function updateCartUI() {
     <h4>Your Order</h4>
     <ul class="cart-list">
       ${cart.map((item, i) => {
-        grandTotal += item.total;
-        return `
+    grandTotal += item.total;
+    return `
           <li>
             <span>${item.size.toUpperCase()} box × ${item.quantity}</span>
             <strong>A$ ${item.total.toFixed(2)}</strong>
             <button onclick="removeFromCart(${i})">×</button>
           </li>`;
-      }).join("")}
+  }).join("")}
     </ul>
     <div class="cart-total">
       <strong>Total:</strong> A$ ${grandTotal.toFixed(2)}
@@ -112,41 +121,34 @@ function updateCartUI() {
 }
 
 /* ================================
-   (5) CHECKOUT
+   (5) CHECKOUT  ✅ 
    ================================ */
 async function checkout() {
   try {
-    if (cart.length === 0) {
+    if (!cart || cart.length === 0) {
       alert("Your cart is currently empty.");
       return;
     }
 
-    const order = {
-      items: cart,
-      total: cart.reduce((sum, item) => sum + item.total, 0)
-    };
-
-    const response = await fetch("https://luxyberry.onrender.com/checkout", {
+    const response = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order)
+      body: JSON.stringify({ cart }) // ✅ backend espera { cart }
     });
 
     if (!response.ok) {
-      throw new Error("Unable to start the payment process.");
+      const errText = await response.text().catch(() => "");
+      console.error("Checkout failed:", errText);
+      alert("Unable to start payment. Please try again.");
+      return;
     }
 
-    const text = await response.text();
-    let data;
-
-    try {
-      data = JSON.parse(text);
-    } catch {
-      throw new Error("Invalid server response.");
-    }
+    const data = await response.json();
 
     if (!data.url) {
-      throw new Error("Payment link was not received.");
+      console.error("Invalid response:", data);
+      alert("Payment link was not received.");
+      return;
     }
 
     window.location.href = data.url;
@@ -211,18 +213,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   new Swiper(carousel, {
     loop: true,
-    autoplay: { delay: 3000, disableOnInteraction: false },
-    effect: "coverflow",
-    grabCursor: true,
     centeredSlides: true,
-    slidesPerView: 3,
-    coverflowEffect: {
-      rotate: 0,
-      stretch: 0,
-      depth: 200,
-      modifier: 2,
-      slideShadows: false
-    },
-    pagination: { el: ".swiper-pagination", clickable: true }
+    grabCursor: true,
+    autoplay: { delay: 3200, disableOnInteraction: false },
+    effect: "coverflow",
+    coverflowEffect: { rotate: 0, stretch: 0, depth: 220, modifier: 2, slideShadows: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+
+    breakpoints: {
+      0: { slidesPerView: 1.15, spaceBetween: 12 },
+      640: { slidesPerView: 2, spaceBetween: 14 },
+      980: { slidesPerView: 3, spaceBetween: 18 }
+    }
   });
+
 });
