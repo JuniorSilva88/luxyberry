@@ -205,7 +205,7 @@ if (hamburger && navLinks) {
 }
 
 /* ================================
-   (9) SWIPER CAROUSEL — PRODUCTS
+   (9) SWIPER CAROUSEL — PRODUCTS (COVERFLOW PREMIUM)
    ================================ */
 document.addEventListener("DOMContentLoaded", () => {
   const carousel = document.querySelector(".product-carousel");
@@ -215,16 +215,43 @@ document.addEventListener("DOMContentLoaded", () => {
     loop: true,
     centeredSlides: true,
     grabCursor: true,
+
+    // ESSENCIAL para o coverflow “empilhar” bem com largura do CSS (clamp)
+    slidesPerView: "auto",
+
+    // Espaço controlado (evita buracos)
+    spaceBetween: 18,
+
     autoplay: { delay: 3200, disableOnInteraction: false },
+
     effect: "coverflow",
-    coverflowEffect: { rotate: 0, stretch: 0, depth: 220, modifier: 2, slideShadows: false },
-    pagination: { el: ".swiper-pagination", clickable: true },
+    coverflowEffect: {
+      rotate: 0,
+      stretch: -20,   // negativo aproxima os cards (efeito premium)
+      depth: 240,
+      modifier: 1.9,
+      slideShadows: false
+    },
+
+    pagination: {
+      el: ".product-carousel .swiper-pagination",
+      clickable: true
+    },
 
     breakpoints: {
-      0: { slidesPerView: 1.15, spaceBetween: 12 },
-      640: { slidesPerView: 2, spaceBetween: 14 },
-      980: { slidesPerView: 3, spaceBetween: 18 }
+      0: {
+        spaceBetween: 12,
+        coverflowEffect: { rotate: 0, stretch: -12, depth: 160, modifier: 1.6, slideShadows: false }
+      },
+      640: {
+        spaceBetween: 16,
+        coverflowEffect: { rotate: 0, stretch: -16, depth: 210, modifier: 1.75, slideShadows: false }
+      },
+      980: {
+        spaceBetween: 18,
+        coverflowEffect: { rotate: 0, stretch: -20, depth: 240, modifier: 1.9, slideShadows: false }
+      }
     }
   });
-
 });
+
