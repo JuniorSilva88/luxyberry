@@ -7,7 +7,7 @@ const boxPrices = {
   small: 35,
   medium: 59,
   large: 95,
-  xl: 145,
+  extraLarge: 145,
   party: 260,
   miniChampagne: 40,
   scarletHeart: 42,
@@ -21,11 +21,29 @@ const boxPrices = {
   frostyDelight: 40
 };
 
+const sizeLabels = {
+  small: "Small",
+  medium: "Medium",
+  large: "Large",
+  extraLarge: "Extra Large",
+  party: "Party",
+  miniChampagne: "Mini Champagne",
+  scarletHeart: "Scarlet Heart",
+  rubyHeart: "Ruby Heart",
+  luminousHeart: "Luminous Heart",
+  grandHeart: "Grand Heart",
+  whiteElegance: "White Elegance",
+  sweetTreasure: "Sweet Treasure",
+  goldenHeart: "Golden Heart",
+  snowyTreasure: "Snowy Treasure",
+  frostyDelight: "Frosty Delight"
+};
+
 /* ================================
    (2) CALCULATE ESTIMATE
    ================================ */
 function calculateEstimate() {
-  const size = document.getElementById("boxSize")?.value;
+  const size = document.getElementById("boxSize")?.value; // já vem "extraLarge"
   const qty = parseInt(document.getElementById("quantity")?.value || 1, 10);
   const regionFee = parseFloat(document.getElementById("region")?.value || 0);
 
@@ -40,6 +58,7 @@ function calculateEstimate() {
   return total;
 }
 
+
 /* ================================
    (3) CART ACTIONS
    ================================ */
@@ -51,10 +70,7 @@ function addBoxToCart() {
   const regionEl = document.getElementById("region");
   const quantityEl = document.getElementById("quantity");
 
-  // ✅ normaliza tamanhos (HTML tem extraLarge, pricing usa xl)
-  let size = sizeEl?.value || "";
-  if (size === "extraLarge") size = "xl";
-
+  const size = sizeEl?.value || ""; // já vem "extraLarge"
   const qty = Number(quantityEl?.value || 1);
   const deliveryFee = Number(regionEl?.value || 0);
   const regionLabel = regionEl?.options?.[regionEl.selectedIndex]?.text || "";
@@ -69,13 +85,9 @@ function addBoxToCart() {
     notes: notesEl?.value || "",
     deliveryDate: deliveryDateEl?.value || "",
     quantity: qty,
-
-    // ✅ campos úteis p/ Stripe e backend
     pricePer,
     deliveryFee,
     regionLabel,
-
-    // ✅ total final desse item (inclui delivery fee)
     total
   };
 
@@ -85,6 +97,7 @@ function addBoxToCart() {
   document.getElementById("cart")?.classList.remove("hidden");
   showToast("Box added to cart");
 }
+
 
 /* ================================
    (4) CART UI
@@ -107,7 +120,7 @@ function updateCartUI() {
     grandTotal += item.total;
     return `
           <li>
-            <span>${item.size.toUpperCase()} box × ${item.quantity}</span>
+           <span>${sizeLabels[item.size] || item.size} box × ${item.quantity}</span>
             <strong>A$ ${item.total.toFixed(2)}</strong>
             <button onclick="removeFromCart(${i})">×</button>
           </li>`;
@@ -254,4 +267,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
