@@ -43,7 +43,7 @@ const sizeLabels = {
    (2) CALCULATE ESTIMATE
    ================================ */
 function calculateEstimate() {
-  const size = document.getElementById("boxSize")?.value; // já vem "extraLarge"
+  const size = document.getElementById("boxSize")?.value; 
   const qty = parseInt(document.getElementById("quantity")?.value || 1, 10);
   const regionFee = parseFloat(document.getElementById("region")?.value || 0);
 
