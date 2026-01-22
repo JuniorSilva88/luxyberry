@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-21-01");
+console.log("MAIN.JS VERSION: 2026-01-21-02");
 
 /* ================================
    (1) STATE & PRICING
@@ -166,7 +166,7 @@ async function checkout() {
     const response = await fetch("https://luxyberry.onrender.com/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items })
+      body: JSON.stringify({ cart })
     });
 
     if (!response.ok) {
