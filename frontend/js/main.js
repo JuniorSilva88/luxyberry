@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-21-02");
+console.log("MAIN.JS VERSION: 2026-01-21-03");
 
 /* ================================
    (1) STATE & PRICING
@@ -144,7 +144,6 @@ async function checkout() {
     return;
   }
 
-  // Converte o carrinho no formato que o backend /checkout espera: { items: [...] }
   const items = cart.map(item => {
     const descriptionParts = [];
 
@@ -157,7 +156,7 @@ async function checkout() {
     return {
       name: sizeLabels[item.size] || item.size,
       description: descriptionParts.join(" | "),
-      unit_amount: Math.round(Number(item.pricePer || 0) * 100), // centavos
+      unit_amount: Math.round(Number(item.pricePer || 0) * 100), // cents
       quantity: Number(item.quantity || 1)
     };
   });
@@ -166,7 +165,7 @@ async function checkout() {
     const response = await fetch("https://luxyberry.onrender.com/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart })
+      body: JSON.stringify({ items }) // ✅ CORRETO
     });
 
     if (!response.ok) {
@@ -190,6 +189,7 @@ async function checkout() {
     alert("We couldn’t connect to the payment service. Please try again.");
   }
 }
+
 
 /* ================================
    (6) TOAST NOTIFICATIONS
