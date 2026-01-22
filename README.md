@@ -1,154 +1,239 @@
-# 🍓 LuxyBerry — Luxury Chocolate-Covered Strawberries
+# Luxyberry
+
+## 🇧🇷 Português
+
+### Visão Geral
+
+O **Luxyberry** é um projeto de **MVP (Minimum Viable Product)** para um site premium de vendas de **morangos cobertos com chocolate**, com foco em experiência mobile-first, identidade visual sofisticada e **pagamento online seguro via Stripe**.
+
+O projeto foi concebido para validação inicial do negócio, com decisões técnicas já alinhadas para uma futura entrada em produção profissional.
 
 ---
 
-## 🇧🇷 PARTE 1 — Visão Geral (Português – pt-BR)
+### Objetivos do Projeto
 
-### 📌 Sobre o projeto
-
-Este projeto consiste em um **site one-page premium com sistema de pedidos online**, desenvolvido para a **LuxyBerry**, uma marca de presentes gastronômicos de luxo especializada em morangos cobertos com chocolate.
-
-O site foi criado com foco em:
-
-- Posicionamento de marca premium  
-- Experiência **mobile-first**  
-- Clareza no processo de pedido  
-- Pagamento online seguro e confiável  
-
-Atualmente, o projeto encontra-se em **fase de validação e aprovação do cliente**, antes do lançamento oficial no mercado australiano 🇦🇺.
+* Apresentar a marca Luxyberry em um **site one-page premium**
+* Permitir que o cliente realize pedidos online de forma simples
+* Redirecionar o pagamento para o **Stripe Checkout**, garantindo segurança
+* Servir como base sólida para evolução do produto (escala, domínio próprio, marketing)
 
 ---
 
-### 🌐 Site (ambiente temporário)
+### Stack Tecnológico
 
-🔗 **Link do site:**  
+#### Frontend
+
+* HTML5
+* CSS3
+* JavaScript (Vanilla)
+* Estrutura mobile-first
+
+Diretório:
+
+```
+frontend/
+ ├─ index.html
+ ├─ css/
+ ├─ js/
+ └─ assets/
+```
+
+#### Backend
+
+* Node.js
+* Express.js
+* Stripe API (Checkout)
+
+Responsável apenas por:
+
+* Criar sessões de pagamento no Stripe
+* Redirecionar o usuário para o ambiente seguro de pagamento
+
+Diretório:
+
+```
+backend/
+ ├─ config/
+ ├─ routes/
+ ├─ services/
+ └─ server.js
+```
+
+---
+
+### Pagamentos
+
+* Integração com **Stripe Checkout**
+* Suporte a:
+
+  * Cartões de crédito
+  * Cartões de débito
+  * Apple Pay
+* Nenhum dado sensível de cartão é armazenado no site
+
+---
+
+### Deploy (Estado Atual)
+
+⚠️ **Ambiente temporário / demonstração**
+
+O projeto está publicado provisoriamente no Render apenas para testes e validação:
+
+```
 https://luxyberry1.onrender.com/
+```
 
-> ⚠️ **Importante:**  
-> Este link é **temporário** e está sendo utilizado exclusivamente para **demonstração, testes e aprovação**.  
-> Após a validação final, o site será migrado para um **domínio próprio** e **hospedagem localizada na Austrália**, garantindo melhor performance e credibilidade para o público local.
-
----
-
-### 💳 Pagamentos
-
-O sistema de pagamento utiliza **Stripe**, uma das plataformas de pagamento mais seguras e amplamente utilizadas no mundo.
-
-Formas de pagamento suportadas:
-- Cartão de crédito  
-- Cartão de débito  
-- Apple Pay  
-
-✔ Nenhum dado de cartão é armazenado no site  
-✔ Todo o pagamento ocorre em ambiente seguro do Stripe (Checkout)  
-✔ Conformidade com padrões internacionais de segurança (PCI-DSS)
+> Este endereço **não representa o ambiente final de produção**.
 
 ---
 
-### 🛠️ Arquitetura (resumo)
+### Decisões de Infraestrutura (Planejamento de Produção)
 
-- **Frontend**  
-  Site estático (HTML, CSS e JavaScript), com layout premium e foco em mobile.
+As seguintes decisões já estão definidas para a versão de produção:
 
-- **Backend**  
-  Node.js + Express, responsável apenas por:
-  - Criar sessões de pagamento no Stripe
-  - Redirecionar o cliente para o checkout seguro
+* Uso de **domínio próprio** (.com ou .com.au)
+* Hospedagem estável na **Austrália** (ex.: DigitalOcean – Sydney)
+* Stripe em modo produção
+* Evitar plataformas com domínio temporário em produção
 
-- **Hospedagem atual**  
-  - Frontend e backend hospedados temporariamente no **Render**
-  - Backend acessado via **URL absoluta**, permitindo múltiplos frontends (Netlify, Render, domínio futuro)
+Essas decisões visam **confiabilidade, performance e percepção de marca**.
 
 ---
 
-### 🗺️ Próximos passos do projeto
+### Status do Projeto
 
-1. Aprovação final do cliente  
-2. Configuração das **chaves Stripe em produção**  
-3. Compra do domínio próprio  
-4. Migração para hospedagem na Austrália  
-5. Testes finais (pagamento e usabilidade)  
-6. Lançamento oficial  
+* MVP funcional
+* Frontend estável
+* Backend mínimo operando com Stripe Checkout
+* Em fase de validação e refinamento
 
 ---
 
----
+### Próximos Passos
 
-## 🌍 PART 2 — Project Overview (English – Universal)
-
-### 📌 About the Project
-
-This project is a **premium one-page website with an online ordering system**, developed for **LuxyBerry**, a luxury food gifting brand specializing in handcrafted chocolate-covered strawberries.
-
-The website focuses on:
-
-- Luxury brand positioning  
-- Mobile-first user experience  
-- Clear ordering flow  
-- Secure online payments  
-
-The project is currently in a **client validation and approval phase**, prior to the official launch in the Australian market 🇦🇺.
+1. Aprovação final do layout e fluxo
+2. Ativação das chaves Stripe de produção
+3. Compra e configuração do domínio
+4. Migração para hospedagem definitiva
+5. Testes finais (pagamento, usabilidade, SEO)
+6. Lançamento oficial
 
 ---
 
-### 🌐 Live Website (temporary)
+## 🇺🇸 English
 
-🔗 **Website URL:**  
+### Overview
+
+**Luxyberry** is an **MVP (Minimum Viable Product)** for a premium one-page website focused on selling **chocolate-covered strawberries**, emphasizing a refined visual identity, mobile-first experience, and **secure online payments via Stripe**.
+
+The project was designed for early business validation, with technical decisions already aligned for a professional production launch.
+
+---
+
+### Project Goals
+
+* Present the Luxyberry brand through a **premium one-page website**
+* Allow customers to place orders online easily
+* Redirect payments to **Stripe Checkout** for maximum security
+* Serve as a solid foundation for future growth and scalability
+
+---
+
+### Technology Stack
+
+#### Frontend
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Mobile-first structure
+
+Directory:
+
+```
+frontend/
+ ├─ index.html
+ ├─ css/
+ ├─ js/
+ └─ assets/
+```
+
+#### Backend
+
+* Node.js
+* Express.js
+* Stripe API (Checkout)
+
+Responsibilities:
+
+* Create Stripe Checkout sessions
+* Redirect users to the secure payment environment
+
+Directory:
+
+```
+backend/
+ ├─ config/
+ ├─ routes/
+ ├─ services/
+ └─ server.js
+```
+
+---
+
+### Payments
+
+* Integrated with **Stripe Checkout**
+* Supports:
+
+  * Credit cards
+  * Debit cards
+  * Apple Pay
+* No sensitive card data is stored on the website
+
+---
+
+### Deployment (Current State)
+
+⚠️ **Temporary / demo environment**
+
+The project is currently deployed on Render for testing and validation purposes only:
+
+```
 https://luxyberry1.onrender.com/
+```
 
-> ⚠️ **Note:**  
-> This is a **temporary deployment** used for demonstration, testing, and approval purposes only.  
-> The website will later be migrated to a custom domain and hosting located in Australia.
-
----
-
-### 💳 Payments
-
-Payments are processed using **Stripe**, a globally trusted and secure payment platform.
-
-Supported payment methods:
-- Credit cards  
-- Debit cards  
-- Apple Pay  
-
-✔ No card data is stored on the website  
-✔ Payments are processed securely via Stripe Checkout  
-✔ Fully compliant with international security standards (PCI-DSS)
+> This URL **does not represent the final production environment**.
 
 ---
 
-### 🛠️ Technical Architecture (Summary)
+### Infrastructure Decisions (Production Planning)
 
-- **Frontend**  
-  Static website (HTML, CSS, JavaScript) with a premium, mobile-first layout.
+The following decisions are already defined for production:
 
-- **Backend**  
-  Node.js + Express, responsible for:
-  - Creating Stripe Checkout sessions
-  - Redirecting users to secure payment pages
+* Use of a **custom domain** (.com or .com.au)
+* Stable hosting in **Australia** (e.g., DigitalOcean – Sydney)
+* Stripe in production mode
+* Avoidance of temporary hosting domains in production
 
-- **Current Hosting**  
-  - Frontend and backend hosted temporarily on **Render**
-  - Backend accessed via **absolute URLs** to support multiple frontend deployments
+These choices aim to ensure **reliability, performance, and brand credibility**.
 
 ---
 
-### 🧱 Repository Structure
+### Project Status
 
-```text
-luxyberry/
-├── backend/        # Node.js backend (Stripe integration)
-│   ├── config/
-│   ├── routes/
-│   ├── services/
-│   └── server.js
-│
-├── frontend/       # Static frontend (main website)
-│   ├── assets/     # Images and media
-│   ├── css/        # Stylesheets
-│   ├── js/         # JavaScript
-│   └── index.html
-│
-├── README.md
-├── LICENSE
-└── .gitignore
+* Functional MVP
+* Stable frontend
+* Minimal backend integrated with Stripe Checkout
+* Under validation and refinement
+
+---
+
+### Next Steps
+
+1. Final approval of layout and user flow
+2. Enable Stripe production keys
+3. Purchase and configure custom domain
+4. Migrate to definitive hosting
+5. Final tests (payments, usability, SEO)
+6. Official launch
