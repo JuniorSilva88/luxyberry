@@ -1,3 +1,5 @@
+console.log("MAIN.JS VERSION: 2026-01-21-01");
+
 /* ================================
    (1) STATE & PRICING
    ================================ */
@@ -137,16 +139,34 @@ function updateCartUI() {
    (5) CHECKOUT  ✅ 
    ================================ */
 async function checkout() {
-  try {
-    if (!cart || cart.length === 0) {
-      alert("Your cart is currently empty.");
-      return;
-    }
+  if (!cart || cart.length === 0) {
+    alert("Your cart is currently empty.");
+    return;
+  }
 
-    const response = await fetch("/api/checkout", {
+  // Converte o carrinho no formato que o backend /checkout espera: { items: [...] }
+  const items = cart.map(item => {
+    const descriptionParts = [];
+
+    if (item.chocolate) descriptionParts.push(`Chocolate: ${item.chocolate}`);
+    if (item.toppings?.length) descriptionParts.push(`Toppings: ${item.toppings.join(", ")}`);
+    if (item.regionLabel) descriptionParts.push(`Delivery: ${item.regionLabel} (A$ ${Number(item.deliveryFee || 0).toFixed(2)})`);
+    if (item.deliveryDate) descriptionParts.push(`Date: ${item.deliveryDate}`);
+    if (item.notes) descriptionParts.push(`Notes: ${item.notes}`);
+
+    return {
+      name: sizeLabels[item.size] || item.size,
+      description: descriptionParts.join(" | "),
+      unit_amount: Math.round(Number(item.pricePer || 0) * 100), // centavos
+      quantity: Number(item.quantity || 1)
+    };
+  });
+
+  try {
+    const response = await fetch("https://luxyberry.onrender.com/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart }) // ✅ backend espera { cart }
+      body: JSON.stringify({ items })
     });
 
     if (!response.ok) {
