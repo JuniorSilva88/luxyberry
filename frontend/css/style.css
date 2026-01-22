@@ -231,6 +231,10 @@ h2 {
     /* mantém seu visual premium, mas evita que “vaze” branco em borda */
     box-shadow: 0 18px 45px rgba(0, 0, 0, .12);
     position: relative;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* mantém proporção elegante e uniforme */
@@ -255,6 +259,8 @@ h2 {
     transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    will-change: transform;
+
 }
 
 /* Paginação */
@@ -266,6 +272,36 @@ h2 {
 .product-carousel .swiper-pagination-bullet-active {
     background: var(--gold);
     opacity: 1;
+}
+
+@media (max-width: 900px) {
+
+    /* Mantém o card premium, mas evita “seam” do coverflow */
+    .product-carousel .swiper-slide {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+
+        /* Importante: se aparecer o seam, ele não pode ser branco */
+        background: transparent;
+        /* em vez de #fff (mobile only) */
+    }
+
+    /* A imagem continua 100% cover, só corrigimos o “gap” subpixel */
+    .product-carousel .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        /* micro-ajuste subpixel — NÃO é zoom */
+        transform: translate3d(-1px, 0, 0);
+        -webkit-transform: translate3d(-1px, 0, 0);
+
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
 }
 
 /* =========================================
@@ -481,16 +517,35 @@ h2 {
 
     .cart {
         width: 90%;
-        /* carrinho ocupa mais espaço no mobile */
         right: 5%;
     }
 
-    .swiper-slide img,
+    /* === CORREÇÃO DEFINITIVA DO CARROSSEL (MOBILE) === */
+    .product-carousel .swiper-slide {
+        overflow: hidden;
+        /* garante que nada “vaze” */
+        background: transparent;
+    }
+
+    .product-carousel .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        /* REMOVE a causa da faixa branca */
+        object-fit: cover;
+        /* mantém visual premium */
+        display: block;
+
+        /* corrige bug de subpixel em Android/Chrome */
+        transform: scale(1.02);
+    }
+
+    /* mantém ajuste apenas para imagens fora do carrossel */
     .grid .card img {
         max-width: 80%;
-        /* imagens maiores no mobile */
     }
 }
+
 
 /* =========================================
    (17) HAMBURGER MENU

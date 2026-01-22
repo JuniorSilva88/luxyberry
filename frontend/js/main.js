@@ -245,45 +245,63 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!carousel || typeof Swiper === "undefined") return;
 
   new Swiper(carousel, {
+    // UX
     loop: true,
     centeredSlides: true,
     grabCursor: true,
-
-    // ESSENCIAL para o coverflow “empilhar” bem com largura do CSS (clamp)
     slidesPerView: "auto",
-
-    // Espaço controlado (evita buracos)
     spaceBetween: 18,
 
-    autoplay: { delay: 3200, disableOnInteraction: false },
+    // Performance: reduz trabalho de layout e eventos
+    watchSlidesProgress: true,
+    watchOverflow: true,
+    updateOnWindowResize: true,
 
+    // Mantém suavidade em touch
+    touchStartPreventDefault: false,
+    resistanceRatio: 0.85,
+
+    // Importante para coverflow mais leve
     effect: "coverflow",
     coverflowEffect: {
       rotate: 0,
-      stretch: -20,   // negativo aproxima os cards (efeito premium)
-      depth: 240,
-      modifier: 1.9,
+      stretch: -18,
+      depth: 220,
+      modifier: 1.8,
       slideShadows: false
     },
 
+    // Autoplay mais "leve" e sem travar
+    autoplay: {
+      delay: 3200,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+
+    // Paginação
     pagination: {
       el: ".product-carousel .swiper-pagination",
       clickable: true
     },
 
+    // Breakpoints (mantendo premium, mas reduzindo custo no mobile)
     breakpoints: {
       0: {
         spaceBetween: 12,
-        coverflowEffect: { rotate: 0, stretch: -12, depth: 160, modifier: 1.6, slideShadows: false }
+        coverflowEffect: { rotate: 0, stretch: -10, depth: 140, modifier: 1.5, slideShadows: false }
       },
       640: {
         spaceBetween: 16,
-        coverflowEffect: { rotate: 0, stretch: -16, depth: 210, modifier: 1.75, slideShadows: false }
+        coverflowEffect: { rotate: 0, stretch: -14, depth: 180, modifier: 1.65, slideShadows: false }
       },
       980: {
         spaceBetween: 18,
-        coverflowEffect: { rotate: 0, stretch: -20, depth: 240, modifier: 1.9, slideShadows: false }
+        coverflowEffect: { rotate: 0, stretch: -18, depth: 220, modifier: 1.8, slideShadows: false }
       }
-    }
+    },
+
+    // Melhorias práticas
+    preloadImages: false,       // deixa o browser lidar (junto com loading="lazy")
+    lazy: false,                // você já está usando loading="lazy" no HTML
   });
 });
