@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-21-05");
+console.log("MAIN.JS VERSION: 2026-01-23-05");
 
 /* ================================
    (1) STATE & PRICING
