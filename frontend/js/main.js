@@ -162,7 +162,7 @@ async function checkout() {
   });
 
   try {
-    const response = await fetch("https://luxyberry.onrender.com/checkout", {
+    const response = await fetch("https://luxyberry1.onrender.com/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items }) // ✅ CORRETO
