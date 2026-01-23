@@ -11,8 +11,11 @@ const allowedOrigins = [
   "https://luxyberry.netlify.app",
   "https://luxyberry1.onrender.com",
   "http://localhost:3000",
+  "http://127.0.0.1:3000",
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
   "http://localhost:5500",
+  "http://127.0.0.1:5500",
 ];
 
 app.use(
@@ -24,21 +27,23 @@ app.use(
     },
   })
 );
+
+// Preflight
+app.options("*", cors());
+
 app.use(express.json());
 
 // API
 app.use("/api/checkout", checkoutRoute);
 
-// FRONTEND
-const frontendPath = path.join(__dirname, "../frontend");
-app.use(express.static(frontendPath));
+// (Opcional) servir frontend só se você quiser
+if (process.env.SERVE_FRONTEND === "true") {
+  const frontendPath = path.join(__dirname, "../frontend");
+  app.use(express.static(frontendPath));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
+}
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
-
-// SERVER
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log(`LuxyBerry running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`LuxyBerry running on port ${PORT}`));

@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-21-03");
+console.log("MAIN.JS VERSION: 2026-01-21-04");
 
 /* ================================
    (1) STATE & PRICING
@@ -45,7 +45,7 @@ const sizeLabels = {
    (2) CALCULATE ESTIMATE
    ================================ */
 function calculateEstimate() {
-  const size = document.getElementById("boxSize")?.value; 
+  const size = document.getElementById("boxSize")?.value;
   const qty = parseInt(document.getElementById("quantity")?.value || 1, 10);
   const regionFee = parseFloat(document.getElementById("region")?.value || 0);
 
@@ -134,6 +134,14 @@ function updateCartUI() {
     <button class="btn" onclick="checkout()">Checkout</button>
   `;
 }
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+  if (cart.length === 0) {
+    document.getElementById("cart")?.classList.add("hidden");
+  }
+}
+
 
 /* ================================
    (5) CHECKOUT  ✅ 
@@ -162,15 +170,23 @@ async function checkout() {
   });
 
   try {
-    const response = await fetch("https://luxyberry1.onrender.com/api/checkout", {
+    const isLocal =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    const API_BASE = isLocal
+      ? "http://localhost:10000"
+      : "https://luxyberry1.onrender.com";
+
+    const response = await fetch(`${API_BASE}/api/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items }) // ✅ CORRETO
+      body: JSON.stringify({ items })
     });
 
     if (!response.ok) {
       const errText = await response.text().catch(() => "");
-      console.error("Checkout failed:", errText);
+      console.error("Checkout failed:", response.status, errText);
       alert("Unable to start payment. Please try again.");
       return;
     }
@@ -189,7 +205,6 @@ async function checkout() {
     alert("We couldn’t connect to the payment service. Please try again.");
   }
 }
-
 
 /* ================================
    (6) TOAST NOTIFICATIONS
