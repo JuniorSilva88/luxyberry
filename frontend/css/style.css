@@ -639,3 +639,115 @@ h2 {
         transform: translateY(0);
     }
 }
+
+/* =========================================
+   LIGHTBOX — PREMIUM (Swiper modal)
+   ========================================= */
+.lb {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: none;
+}
+
+.lb.is-open {
+    display: block;
+}
+
+.lb__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 12, 0.72);
+    backdrop-filter: blur(10px);
+}
+
+.lb__panel {
+    position: relative;
+    width: min(980px, calc(100vw - 28px));
+    height: min(78vh, 720px);
+    margin: 10vh auto 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(200, 167, 90, 0.22);
+    border-radius: 18px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .45);
+    overflow: hidden;
+}
+
+.lb__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.lb__close:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Swiper no modal */
+.lb-swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.lb-swiper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+/* IMAGEM NO MODAL */
+.lb-swiper .swiper-slide img {
+    /* NÃO estica a imagem */
+    width: auto;
+    height: auto;
+
+    /* Mostra a imagem inteira (sem corte) */
+    object-fit: contain;
+
+    /* Limites elegantes */
+    max-width: min(92vw, 1100px);
+    max-height: 78vh;
+
+    border-radius: 16px;
+    display: block;
+
+    /* Evita blur por transform (Swiper / GPU) */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Controles */
+.lb-swiper .swiper-button-prev,
+.lb-swiper .swiper-button-next {
+    color: #fff;
+}
+
+.lb-swiper .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.35;
+}
+
+.lb-swiper .swiper-pagination-bullet-active {
+    background: var(--gold);
+    opacity: 1;
+}
+
+/* Mobile: ocupa mais da tela */
+@media (max-width: 900px) {
+    .lb__panel {
+        width: calc(100vw - 18px);
+        height: 84vh;
+        margin-top: 8vh;
+        border-radius: 16px;
+    }
+}

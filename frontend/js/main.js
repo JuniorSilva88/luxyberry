@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-21-04");
+console.log("MAIN.JS VERSION: 2026-01-21-05");
 
 /* ================================
    (1) STATE & PRICING
@@ -329,4 +329,91 @@ document.addEventListener("DOMContentLoaded", () => {
     preloadImages: false,       // deixa o browser lidar (junto com loading="lazy")
     lazy: false,                // você já está usando loading="lazy" no HTML
   });
+  /* =========================================
+   (10) LIGHTBOX (Modal gallery) — mantém layout do carrossel
+   ========================================= */
+
+  let lbSwiper = null;
+
+  function openLightbox(startIndex = 0) {
+    const lb = document.getElementById("lightbox");
+    const lbWrapper = document.getElementById("lbWrapper");
+    if (!lb || !lbWrapper) return;
+
+    // Pega as imagens do carrossel principal
+    const slides = document.querySelectorAll(".product-carousel .swiper-slide img");
+    if (!slides.length) return;
+
+    // Monta slides do modal
+    lbWrapper.innerHTML = "";
+    slides.forEach((img) => {
+      const s = document.createElement("div");
+      s.className = "swiper-slide";
+
+      const clone = document.createElement("img");
+      clone.src = img.getAttribute("src");
+      clone.alt = img.getAttribute("alt") || "Product";
+      clone.loading = "eager";
+
+      s.appendChild(clone);
+      lbWrapper.appendChild(s);
+    });
+
+    // Abre modal
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
+    document.documentElement.style.overflow = "hidden";
+
+    // Recria swiper do modal
+    if (lbSwiper) {
+      try { lbSwiper.destroy(true, true); } catch (_) { }
+      lbSwiper = null;
+    }
+
+    lbSwiper = new Swiper(".lb-swiper", {
+      initialSlide: startIndex,
+      loop: false,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      grabCursor: true,
+      keyboard: { enabled: true },
+      pagination: { el: ".lb-pagination", clickable: true },
+      navigation: { nextEl: ".lb-next", prevEl: ".lb-prev" }
+    });
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById("lightbox");
+    if (!lb) return;
+
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
+    document.documentElement.style.overflow = "";
+
+    if (lbSwiper) {
+      try { lbSwiper.destroy(true, true); } catch (_) { }
+      lbSwiper = null;
+    }
+  }
+
+  // Clique em imagem do carrossel abre lightbox
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".product-carousel .swiper-slide img");
+    if (!img) return;
+
+    const all = [...document.querySelectorAll(".product-carousel .swiper-slide img")];
+    const idx = all.indexOf(img);
+    openLightbox(Math.max(0, idx));
+  });
+
+  // Fechar modal: backdrop ou botão X
+  document.addEventListener("click", (e) => {
+    if (e.target.matches("[data-lb-close]")) closeLightbox();
+  });
+
+  // ESC fecha
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+
 });
