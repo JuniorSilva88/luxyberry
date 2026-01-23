@@ -152,12 +152,16 @@ async function checkout() {
     return;
   }
 
-  const items = cart.map(item => {
+  const items = cart.map((item) => {
     const descriptionParts = [];
 
     if (item.chocolate) descriptionParts.push(`Chocolate: ${item.chocolate}`);
     if (item.toppings?.length) descriptionParts.push(`Toppings: ${item.toppings.join(", ")}`);
-    if (item.regionLabel) descriptionParts.push(`Delivery: ${item.regionLabel} (A$ ${Number(item.deliveryFee || 0).toFixed(2)})`);
+    if (item.regionLabel) {
+      descriptionParts.push(
+        `Delivery: ${item.regionLabel} (A$ ${Number(item.deliveryFee || 0).toFixed(2)})`
+      );
+    }
     if (item.deliveryDate) descriptionParts.push(`Date: ${item.deliveryDate}`);
     if (item.notes) descriptionParts.push(`Notes: ${item.notes}`);
 
@@ -165,23 +169,29 @@ async function checkout() {
       name: sizeLabels[item.size] || item.size,
       description: descriptionParts.join(" | "),
       unit_amount: Math.round(Number(item.pricePer || 0) * 100), // cents
-      quantity: Number(item.quantity || 1)
+      quantity: Number(item.quantity || 1),
     };
   });
 
   try {
-    const isLocal =
-      window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1";
+    const host = window.location.hostname;
 
+    const isLocal = host === "localhost" || host === "127.0.0.1";
+    const isRender = host.endsWith(".onrender.com");
+
+    // Local: backend local
+    // Render: mesma origem -> URL relativa (evita CORS)
+    // Netlify/Outros: chama backend do Render
     const API_BASE = isLocal
       ? "http://localhost:10000"
-      : "https://luxyberry1.onrender.com";
+      : isRender
+        ? ""
+        : "https://luxyberry1.onrender.com";
 
     const response = await fetch(`${API_BASE}/api/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items })
+      body: JSON.stringify({ items }),
     });
 
     if (!response.ok) {
@@ -193,13 +203,13 @@ async function checkout() {
 
     const data = await response.json();
 
-    if (!data.url) {
-      console.error("Invalid response:", data);
+    if (!data?.url) {
+      console.error("Payment URL missing in response:", data);
       alert("Payment link was not received.");
       return;
     }
 
-    window.location.href = data.url;
+    window.location.assign(data.url);
   } catch (err) {
     console.error("Checkout error:", err);
     alert("We couldn’t connect to the payment service. Please try again.");
