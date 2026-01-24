@@ -1,4 +1,4 @@
-console.log("MAIN.JS VERSION: 2026-01-23-05");
+console.log("MAIN.JS VERSION: 2026-01-24-01");
 
 /* ================================
    (1) STATE & PRICING
@@ -243,7 +243,27 @@ function showToast(message) {
 calculateEstimate();
 
 /* ================================
-   (8) MOBILE MENU
+   (8) WHATSAPP LINK
+   ================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  const whatsappLink = document.getElementById("whatsapp-link");
+  if (!whatsappLink) return;
+
+  const phone = "61400289803"; // E.164, somente números
+  const message = "Hello LuxyBerry, I would like to place an order";
+
+  const url =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(message);
+
+  whatsappLink.href = url;
+});
+
+
+/* ================================
+   (9) MOBILE MENU
    ================================ */
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
@@ -263,7 +283,7 @@ if (hamburger && navLinks) {
 }
 
 /* ================================
-   (9) SWIPER CAROUSEL — PRODUCTS (COVERFLOW PREMIUM)
+   (10) SWIPER CAROUSEL — PRODUCTS (COVERFLOW PREMIUM)
    ================================ */
 document.addEventListener("DOMContentLoaded", () => {
   const carousel = document.querySelector(".product-carousel");
@@ -330,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lazy: false,                // você já está usando loading="lazy" no HTML
   });
   /* =========================================
-   (10) LIGHTBOX (Modal gallery) — mantém layout do carrossel
+   (11) LIGHTBOX (Modal gallery) — mantém layout do carrossel
    ========================================= */
 
   let lbSwiper = null;
