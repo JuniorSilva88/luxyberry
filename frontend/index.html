@@ -121,6 +121,7 @@
             <div class="form-row">
                 <label>Chocolate</label>
                 <select id="chocolate">
+                    <option value="" selected>🚫 None</option>
                     <option><i class="fas fa-cookie-bite"></i> Milk</option>
                     <option><i class="fas fa-cookie-bite"></i> Dark</option>
                     <option><i class="fas fa-cookie-bite"></i> White</option>
@@ -199,10 +200,27 @@
             <div class="form-row">
                 <label>Region</label>
                 <select id="region">
+                    <option value="" selected>🚫 None</option>
                     <option value="0">Logan City (up to 10km)</option>
                     <option value="10">Brisbane (+A$10)</option>
                     <option value="15">Gold Coast (+A$15)</option>
                 </select>
+            </div>
+
+            <div class="form-row">
+                <label>Postcode</label>
+                <input id="postcode" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4"
+                    placeholder="e.g. 4207" required />
+            </div>
+
+            <div class="form-row">
+                <label>Reference point (optional)</label>
+                <input id="referencePoint" type="text" placeholder="House color, nearby store, apartment name…" />
+            </div>
+
+            <div class="form-row">
+                <label>Contact phone</label>
+                <input id="contactPhone" type="tel" placeholder="+61 4xx xxx xxx" required />
             </div>
 
             <div class="form-row">
@@ -270,11 +288,46 @@
         </div>
     </footer>
 
-    <!-- CARRINHO -->
-    <div id="cart" class="cart hidden">
-        <h3>Your Cart</h3>
-        <ul id="cartItems"></ul>
-        <button class="btn">Checkout</button>
+    <!-- CARRINHO / CART DRAWER -->
+
+    <div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
+
+    <div id="cartDrawer" class="cart-drawer" aria-hidden="true">
+
+        <!-- HEADER DO DRAWER -->
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" onclick="closeCart()">✕</button>
+        </div>
+
+        <!-- CORPO DO DRAWER (lista de itens) -->
+        <div class="cart-body">
+            <!-- preenchido pelo JS -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="cart-row">
+                    <span>Subtotal</span>
+                    <strong id="cartSubtotal">A$ 0.00</strong>
+                </div>
+
+                <div class="cart-row">
+                    <span>Delivery</span>
+                    <strong id="cartDelivery">A$ 0.00</strong>
+                </div>
+
+                <div class="cart-row cart-total">
+                    <span>Total</span>
+                    <strong id="cartTotal">A$ 0.00</strong>
+                </div>
+            </div>
+
+            <button class="btn" onclick="checkout()">Proceed to payment</button>
+
+            <p class="cart-secure">🔒 Secure payment with Stripe</p>
+        </div>
+
     </div>
 
     <!-- LIGHTBOX (MODAL) -->

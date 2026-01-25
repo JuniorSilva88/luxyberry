@@ -641,7 +641,7 @@ h2 {
 }
 
 /* =========================================
-   LIGHTBOX — PREMIUM (Swiper modal)
+  (19) LIGHTBOX — PREMIUM (Swiper modal)
    ========================================= */
 .lb {
     position: fixed;
@@ -666,10 +666,12 @@ h2 {
     width: min(980px, calc(100vw - 28px));
     height: min(78vh, 720px);
     margin: 10vh auto 0;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(200, 167, 90, 0.22);
-    border-radius: 18px;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, .45);
+
+    /* 🔑 remove a “caixa” */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
     overflow: hidden;
 }
 
@@ -705,27 +707,36 @@ h2 {
 }
 
 /* IMAGEM NO MODAL */
+.lb-swiper,
+.lb-swiper .swiper-wrapper,
+.lb-swiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.lb-swiper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .lb-swiper .swiper-slide img {
-    /* NÃO estica a imagem */
+    max-width: 90%;
+    max-height: 90%;
+
     width: auto;
     height: auto;
 
-    /* Mostra a imagem inteira (sem corte) */
     object-fit: contain;
 
-    /* Limites elegantes */
-    max-width: min(92vw, 1100px);
-    max-height: 78vh;
-
     border-radius: 16px;
-    display: block;
 
-    /* Evita blur por transform (Swiper / GPU) */
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+
+    background: none;
+
     transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
 }
-
 /* Controles */
 .lb-swiper .swiper-button-prev,
 .lb-swiper .swiper-button-next {
@@ -750,4 +761,111 @@ h2 {
         margin-top: 8vh;
         border-radius: 16px;
     }
+}
+
+/* =========================================
+   (20) CART DRAWER — PREMIUM
+   ========================================= */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+  z-index: 2990;
+}
+
+.cart-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  background: #fff;
+  transform: translateX(100%);
+  transition: transform .35s ease;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* 🔑 espaço entre total e botão */
+}
+
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.cart-total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cart-secure {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+
+.cart-footer .btn {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* Mobile = fullscreen */
+@media (max-width: 768px) {
+  .cart-drawer {
+    width: 100%;
+  }
 }

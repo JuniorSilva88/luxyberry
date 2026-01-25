@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
 
       return {
         price_data: {
-          currency: "brl", // troque para "aud" se for realmente Austrália agora
+          currency: "aud", // troque para "aud" se for realmente Austrália agora
           product_data: {
             name: item.name,
             description: item.description || "",

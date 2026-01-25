@@ -71,6 +71,10 @@ function addBoxToCart() {
   const deliveryDateEl = document.getElementById("deliveryDate");
   const regionEl = document.getElementById("region");
   const quantityEl = document.getElementById("quantity");
+  const postcodeEl = document.getElementById("postcode");
+  const referenceEl = document.getElementById("referencePoint");
+  const phoneEl = document.getElementById("contactPhone");
+
 
   const size = sizeEl?.value || ""; // já vem "extraLarge"
   const qty = Number(quantityEl?.value || 1);
@@ -86,6 +90,9 @@ function addBoxToCart() {
     toppings: [...document.querySelectorAll(".topping")].map(t => t.value).filter(Boolean),
     notes: notesEl?.value || "",
     deliveryDate: deliveryDateEl?.value || "",
+    postcode: postcodeEl?.value || "",
+    referencePoint: referenceEl?.value || "",
+    contactPhone: phoneEl?.value || "",
     quantity: qty,
     pricePer,
     deliveryFee,
@@ -96,7 +103,7 @@ function addBoxToCart() {
   cart.push(order);
   updateCartUI();
 
-  document.getElementById("cart")?.classList.remove("hidden");
+  openCart();
   showToast("Box added to cart");
 }
 
@@ -105,35 +112,47 @@ function addBoxToCart() {
    (4) CART UI
    ================================ */
 function updateCartUI() {
-  const cartBox = document.querySelector(".cart");
+  const cartBox = document.querySelector(".cart-body");
   if (!cartBox) return;
 
   if (cart.length === 0) {
     cartBox.innerHTML = "<p>Your cart is empty</p>";
+
+    document.getElementById("cartSubtotal").textContent = "A$ 0.00";
+    document.getElementById("cartDelivery").textContent = "A$ 0.00";
+    document.getElementById("cartTotal").textContent = "A$ 0.00";
     return;
   }
 
-  let grandTotal = 0;
+  let subtotal = 0;
+  let deliveryTotal = 0;
 
   cartBox.innerHTML = `
     <h4>Your Order</h4>
     <ul class="cart-list">
       ${cart.map((item, i) => {
-    grandTotal += item.total;
+    const itemSubtotal = item.pricePer * item.quantity;
+    subtotal += itemSubtotal;
+    deliveryTotal += Number(item.deliveryFee || 0);
+
     return `
           <li>
-           <span>${sizeLabels[item.size] || item.size} box × ${item.quantity}</span>
-            <strong>A$ ${item.total.toFixed(2)}</strong>
+            <span>${sizeLabels[item.size] || item.size} × ${item.quantity}</span>
+            <strong>A$ ${(itemSubtotal + item.deliveryFee).toFixed(2)}</strong>
             <button onclick="removeFromCart(${i})">×</button>
-          </li>`;
+          </li>
+        `;
   }).join("")}
     </ul>
-    <div class="cart-total">
-      <strong>Total:</strong> A$ ${grandTotal.toFixed(2)}
-    </div>
-    <button class="btn" onclick="checkout()">Checkout</button>
   `;
+
+  const grandTotal = subtotal + deliveryTotal;
+
+  document.getElementById("cartSubtotal").textContent = `A$ ${subtotal.toFixed(2)}`;
+  document.getElementById("cartDelivery").textContent = `A$ ${deliveryTotal.toFixed(2)}`;
+  document.getElementById("cartTotal").textContent = `A$ ${grandTotal.toFixed(2)}`;
 }
+
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCartUI();
@@ -164,6 +183,9 @@ async function checkout() {
     }
     if (item.deliveryDate) descriptionParts.push(`Date: ${item.deliveryDate}`);
     if (item.notes) descriptionParts.push(`Notes: ${item.notes}`);
+    if (item.postcode) descriptionParts.push(`Postcode: ${item.postcode}`);
+    if (item.referencePoint) descriptionParts.push(`Reference: ${item.referencePoint}`);
+    if (item.contactPhone) descriptionParts.push(`Phone: ${item.contactPhone}`);
 
     return {
       name: sizeLabels[item.size] || item.size,
@@ -261,9 +283,32 @@ document.addEventListener("DOMContentLoaded", () => {
   whatsappLink.href = url;
 });
 
+/* ================================
+   (9) CART DRAWER CONTROLS
+   ================================ */
+function openCart() {
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+  if (!drawer || !overlay) return;
+
+  drawer.classList.add("open");
+  overlay.classList.add("open");
+  drawer.setAttribute("aria-hidden", "false");
+}
+
+function closeCart() {
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+  if (!drawer || !overlay) return;
+
+  drawer.classList.remove("open");
+  overlay.classList.remove("open");
+  drawer.setAttribute("aria-hidden", "true");
+}
+
 
 /* ================================
-   (9) MOBILE MENU
+   (10) MOBILE MENU
    ================================ */
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
@@ -283,7 +328,7 @@ if (hamburger && navLinks) {
 }
 
 /* ================================
-   (10) SWIPER CAROUSEL — PRODUCTS (COVERFLOW PREMIUM)
+   (11) SWIPER CAROUSEL — PRODUCTS (COVERFLOW PREMIUM)
    ================================ */
 document.addEventListener("DOMContentLoaded", () => {
   const carousel = document.querySelector(".product-carousel");
@@ -350,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lazy: false,                // você já está usando loading="lazy" no HTML
   });
   /* =========================================
-   (11) LIGHTBOX (Modal gallery) — mantém layout do carrossel
+   (12) LIGHTBOX (Modal gallery) — mantém layout do carrossel
    ========================================= */
 
   let lbSwiper = null;
