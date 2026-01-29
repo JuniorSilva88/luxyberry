@@ -6,19 +6,19 @@ console.log("MAIN.JS VERSION: 2026-01-24-01");
 let cart = [];
 
 const boxPrices = {
-  small: 35,
-  medium: 59,
-  large: 95,
-  extraLarge: 145,
-  party: 260,
-  miniChampagne: 40,
-  scarletHeart: 42,
-  rubyHeart: 48,
-  luminousHeart: 55,
-  grandHeart: 65,
-  whiteElegance: 70,
-  sweetTreasure: 70,
-  goldenHeart: 50,
+  small: 20,
+  medium: 35,
+  large: 50,
+  extraLarge: 65,
+  party: 120,
+  miniChampagne: 45,
+  scarletHeart: 30,
+  rubyHeart: 45,
+  luminousHeart: 60,
+  grandHeart: 80,
+  whiteElegance: 50,
+  sweetTreasure: 45,
+  goldenHeart: 45,
   snowyTreasure: 45,
   frostyDelight: 40
 };
