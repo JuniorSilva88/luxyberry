@@ -6,9 +6,10 @@ function getBaseUrl(req) {
   const origin = req.headers.origin;
   const referer = req.headers.referer;
 
-  // Prioriza Origin (mais confiável), cai para Referer se necessário
+  // Prefer Origin (most reliable)
   if (origin) return origin;
 
+  // Fallback to Referer
   if (referer) {
     try {
       return new URL(referer).origin;
@@ -17,8 +18,8 @@ function getBaseUrl(req) {
     }
   }
 
-  // Fallback para não quebrar em chamadas sem origin/referer
-  return process.env.DEFAULT_FRONTEND_URL || "http://localhost:5500";
+  // Last fallback (env-based)
+  return process.env.FRONTEND_URL || "http://localhost:3000";
 }
 
 router.post("/", async (req, res) => {
@@ -32,7 +33,6 @@ router.post("/", async (req, res) => {
     const baseUrl = getBaseUrl(req);
 
     const line_items = items.map((item) => {
-      // Stripe exige unit_amount em inteiro (centavos)
       const unitAmount = Number(item.unit_amount);
 
       if (!Number.isInteger(unitAmount) || unitAmount <= 0) {
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
 
       return {
         price_data: {
-          currency: "aud", // troque para "aud" se for realmente Austrália agora
+          currency: "aud",
           product_data: {
             name: item.name,
             description: item.description || "",
@@ -63,7 +63,6 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.error("Stripe error:", err);
 
-    // Retorna a mensagem real do Stripe (em DEV/TEST isso é essencial)
     return res.status(500).json({
       error: err?.message || "Stripe checkout failed",
       type: err?.type,
