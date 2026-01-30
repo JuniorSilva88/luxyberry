@@ -8,18 +8,27 @@ const checkoutRoute = require("./routes/checkout");
 const app = express();
 
 /* =========================================================
-   CORS CONFIG — API ONLY (Render backend)
+   ENV VALIDATION (FAIL FAST)
+   ========================================================= */
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error("❌ STRIPE_SECRET_KEY is missing");
+  process.exit(1);
+}
+
+/* =========================================================
+   CORS CONFIG — API ONLY
    ========================================================= */
 
 const allowedOrigins = [
-  // Produção
+  // Production
   "https://luxyberry.com.au",
   "https://www.luxyberry.com.au",
 
   // Vercel
   "https://luxyberry.vercel.app",
 
-  // Netlify
+  // Netlify (legacy / preview)
   "https://luxyberry.netlify.app",
 
   // Render
@@ -36,22 +45,23 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Permite requisições sem origin (curl, healthcheck, etc)
+    // Allow server-to-server, healthchecks, curl, Stripe webhooks
     if (!origin) return callback(null, true);
 
-    // Permite previews da Vercel
+    // Allow preview deployments
     if (origin.endsWith(".vercel.app")) return callback(null, true);
-
-    // Permite Render
     if (origin.endsWith(".onrender.com")) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) return callback(null, true);
 
-    console.log("❌ CORS blocked origin:", origin);
+    if (process.env.NODE_ENV !== "production") {
+      console.log("❌ CORS blocked origin:", origin);
+    }
+
     return callback(new Error("Not allowed by CORS"));
   },
   methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["Content-Type"],
   credentials: true,
 };
 
@@ -59,13 +69,13 @@ const corsOptions = {
    MIDDLEWARES
    ========================================================= */
 
-// Preflight GLOBAL (ESSENCIAL para CORS funcionar)
+// Preflight (ESSENTIAL for CORS)
 app.options("*", cors(corsOptions));
 
 // Body parser
 app.use(express.json());
 
-// CORS aplicado SOMENTE na API
+// CORS applied ONLY to API
 app.use("/api", cors(corsOptions));
 
 /* =========================================================
@@ -75,7 +85,7 @@ app.use("/api", cors(corsOptions));
 app.use("/api/checkout", checkoutRoute);
 
 /* =========================================================
-   OPTIONAL — SERVE FRONTEND (apenas se quiser)
+   OPTIONAL — SERVE FRONTEND
    ========================================================= */
 
 if (process.env.SERVE_FRONTEND === "true") {
