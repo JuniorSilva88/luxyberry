@@ -2,26 +2,6 @@ const express = require("express");
 const router = express.Router();
 const stripe = require("../services/stripe");
 
-function getBaseUrl(req) {
-  const origin = req.headers.origin;
-  const referer = req.headers.referer;
-
-  // Prefer Origin (most reliable)
-  if (origin) return origin;
-
-  // Fallback to Referer
-  if (referer) {
-    try {
-      return new URL(referer).origin;
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  // Last fallback (env-based)
-  return process.env.FRONTEND_URL || "http://localhost:3000";
-}
-
 router.post("/", async (req, res) => {
   try {
     const { items } = req.body;
@@ -29,8 +9,6 @@ router.post("/", async (req, res) => {
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "Items missing" });
     }
-
-    const baseUrl = getBaseUrl(req);
 
     const line_items = items.map((item) => {
       const unitAmount = Number(item.unit_amount);
@@ -53,10 +31,15 @@ router.post("/", async (req, res) => {
     });
 
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
       mode: "payment",
-      line_items,
-      success_url: `${baseUrl}/#success`,
-      cancel_url: `${baseUrl}/#build`,
+      line_items: line_items,
+
+      success_url:
+        "https://luxyberry.com.au/success.html?session_id={CHECKOUT_SESSION_ID}",
+
+      cancel_url:
+        "https://luxyberry.com.au/cancel.html",
     });
 
     return res.json({ url: session.url });
