@@ -4,10 +4,14 @@ const stripe = require("../services/stripe");
 
 router.post("/", async (req, res) => {
   try {
-    const { items } = req.body;
+    const { items, customerName } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "Items missing" });
+    }
+
+    if (!customerName) {
+      return res.status(400).json({ error: "Customer name missing" });
     }
 
     const line_items = items.map((item) => {
@@ -30,13 +34,15 @@ router.post("/", async (req, res) => {
       };
     });
 
+    const encodedName = encodeURIComponent(customerName);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: line_items,
 
       success_url:
-        "https://luxyberry.com.au/success.html?session_id={CHECKOUT_SESSION_ID}",
+        `https://luxyberry.com.au/success.html?session_id={CHECKOUT_SESSION_ID}&name=${encodedName}`,
 
       cancel_url:
         "https://luxyberry.com.au/cancel.html",
@@ -53,5 +59,6 @@ router.post("/", async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;

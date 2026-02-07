@@ -171,6 +171,15 @@ async function checkout() {
     return;
   }
 
+  // 🔹 NOVO: captura do nome do cliente
+  const customerName =
+    document.getElementById("customerName")?.value || "";
+
+  if (!customerName) {
+    alert("Please enter your name before checkout.");
+    return;
+  }
+
   const items = cart.map((item) => {
     const descriptionParts = [];
 
@@ -201,9 +210,6 @@ async function checkout() {
     const isLocal = host === "localhost" || host === "127.0.0.1";
     const isRender = host.endsWith(".onrender.com");
 
-    // Local: backend local
-    // Render: mesma origem -> URL relativa (evita CORS)
-    // Netlify/Outros: chama backend do Render
     const API_BASE = isLocal
       ? "http://localhost:10000"
       : isRender
@@ -213,7 +219,11 @@ async function checkout() {
     const response = await fetch(`${API_BASE}/api/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items }),
+      // 🔹 NOVO: envia o nome junto
+      body: JSON.stringify({
+        items,
+        customerName
+      }),
     });
 
     if (!response.ok) {

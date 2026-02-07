@@ -4,23 +4,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   const whatsappLink = document.getElementById("whatsapp-link");
   const orderRefEl = document.getElementById("orderRef");
+  const nameEl = document.getElementById("customerName");
 
   if (!whatsappLink) return;
 
-  const phone = "61400289803"; // mesmo número que você já usa
+  const phone = "61400289803";
 
-  // LÊ O session_id DA URL (enviado pelo Stripe)
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get("session_id");
+  const customerName = params.get("name");
 
-  // Mostra algo visual para o cliente
   const orderRef = sessionId
     ? sessionId.substring(0, 12).toUpperCase()
     : "CONFIRMED";
 
   orderRefEl.textContent = orderRef;
 
-  // MENSAGEM — mesma ideia do seu main.js
+  // 🔹 NOVO: mostra o nome se existir
+  if (nameEl && customerName) {
+    nameEl.textContent = customerName;
+  }
+
   const message =
     "Hello LuxyBerry 👋\n" +
     "My payment was successful.\n\n" +
