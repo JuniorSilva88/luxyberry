@@ -1,21 +1,26 @@
-# Luxyberry
+
+---
+
+# LuxyBerry 🍓🍫
 
 ## 🇧🇷 Português
 
 ### Visão Geral
 
-O **Luxyberry** é um projeto de **MVP (Minimum Viable Product)** para um site premium de vendas de **morangos cobertos com chocolate**, com foco em experiência mobile-first, identidade visual sofisticada e **pagamento online seguro via Stripe**.
+O **LuxyBerry** é um projeto de **MVP (Minimum Viable Product)** para um site premium de vendas de **morangos cobertos com chocolate**, com foco em **experiência mobile-first**, identidade visual sofisticada e **pagamento online seguro via Stripe**.
 
-O projeto foi concebido para validação inicial do negócio, com decisões técnicas já alinhadas para uma futura entrada em produção profissional.
+O MVP foi desenvolvido com arquitetura real de produção, separando frontend e backend, e já está **tecnicamente pronto para operação comercial**, aguardando apenas validações finais de negócio.
 
 ---
 
 ### Objetivos do Projeto
 
-* Apresentar a marca Luxyberry em um **site one-page premium**
-* Permitir que o cliente realize pedidos online de forma simples
-* Redirecionar o pagamento para o **Stripe Checkout**, garantindo segurança
-* Servir como base sólida para evolução do produto (escala, domínio próprio, marketing)
+* Apresentar a marca LuxyBerry em um **site one-page premium**
+* Permitir que o cliente monte um pedido usando **carrinho de compras**
+* Possibilitar adicionar múltiplos itens antes do pagamento
+* Redirecionar o pagamento para o **Stripe Checkout (ambiente seguro)**
+* Exibir **confirmação de pedido pós-pagamento**
+* Servir como base sólida para escala futura (automação, marketing, domínio próprio)
 
 ---
 
@@ -26,17 +31,34 @@ O projeto foi concebido para validação inicial do negócio, com decisões téc
 * HTML5
 * CSS3
 * JavaScript (Vanilla)
-* Estrutura mobile-first
+* Mobile-first
+* UX de e-commerce com **cart drawer**
+
+Hospedagem:
+
+* **Vercel**
 
 Diretório:
 
 ```
 frontend/
  ├─ index.html
+ ├─ success.html
+ ├─ cancel.html
  ├─ css/
  ├─ js/
  └─ assets/
 ```
+
+Principais funcionalidades:
+
+* Carrinho persistente (sem recarregar página)
+* Botão de carrinho no header
+* Captura do nome do cliente antes do checkout
+* Página de sucesso com referência do pedido
+* Página de cancelamento de pagamento
+
+---
 
 #### Backend
 
@@ -44,19 +66,25 @@ frontend/
 * Express.js
 * Stripe API (Checkout)
 
-Responsável apenas por:
+Hospedagem:
+
+* **Render**
+
+Responsabilidades:
 
 * Criar sessões de pagamento no Stripe
-* Redirecionar o usuário para o ambiente seguro de pagamento
+* Validar itens do carrinho
+* Redirecionar o usuário para o Stripe Checkout
+* Definir URLs de sucesso e cancelamento
 
 Diretório:
 
 ```
 backend/
- ├─ config/
  ├─ routes/
  ├─ services/
- └─ server.js
+ ├─ server.js
+ └─ .env (não versionado)
 ```
 
 ---
@@ -64,59 +92,99 @@ backend/
 ### Pagamentos
 
 * Integração com **Stripe Checkout**
+* Stripe em **modo LIVE**
 * Suporte a:
 
   * Cartões de crédito
   * Cartões de débito
   * Apple Pay
 * Nenhum dado sensível de cartão é armazenado no site
+* Pagamento ocorre exclusivamente no ambiente seguro do Stripe
+
+---
+
+### Fluxo de Compra
+
+1. Cliente navega pelo site
+2. Adiciona produtos ao carrinho
+3. Pode fechar o carrinho e continuar comprando
+4. Informa o **nome**
+5. Finaliza o pedido
+6. É redirecionado para o **Stripe Checkout**
+7. Após pagamento:
+
+   * Página de sucesso com confirmação
+   * Referência do pedido exibida
+   * Acesso rápido ao WhatsApp
+8. Em caso de cancelamento:
+
+   * Página dedicada informando que não houve cobrança
 
 ---
 
 ### Deploy (Estado Atual)
 
-⚠️ **Ambiente temporário / demonstração**
-
-O projeto está publicado provisoriamente no Render apenas para testes e validação:
+#### Frontend
 
 ```
-https://luxyberry1.onrender.com/
+https://luxyberry.vercel.app
 ```
 
-> Este endereço **não representa o ambiente final de produção**.
+#### Backend (API / Stripe)
+
+```
+https://luxyberry1.onrender.com
+```
+
+> O backend está rodando com **chave Stripe LIVE**.
 
 ---
 
-### Decisões de Infraestrutura (Planejamento de Produção)
+### Produção Oficial
 
-As seguintes decisões já estão definidas para a versão de produção:
+O domínio oficial do projeto é:
 
-* Uso de **domínio próprio** (.com ou .com.au)
-* Hospedagem estável na **Austrália** (ex.: DigitalOcean – Sydney)
-* Stripe em modo produção
-* Evitar plataformas com domínio temporário em produção
+```
+https://luxyberry.com.au
+```
 
-Essas decisões visam **confiabilidade, performance e percepção de marca**.
+Esse domínio é o **endereço recomendado para divulgação comercial**, garantindo maior confiança e percepção de marca.
+
+---
+
+### Decisões de Infraestrutura
+
+* Separação clara entre frontend e backend
+* Backend desacoplado para facilitar escala
+* Stripe como gateway de pagamento
+* Preparado para:
+
+  * Webhooks Stripe
+  * Automação de WhatsApp
+  * Integração com e-mail
+  * Escala de tráfego
 
 ---
 
 ### Status do Projeto
 
-* MVP funcional
-* Frontend estável
-* Backend mínimo operando com Stripe Checkout
-* Em fase de validação e refinamento
+* ✅ MVP funcional
+* ✅ Carrinho implementado
+* ✅ Stripe em produção (LIVE)
+* ✅ Páginas de sucesso e cancelamento
+* ✅ Frontend e backend estáveis
+* ⏳ Monitoramento inicial de pedidos
 
 ---
 
-### Próximos Passos
+### Próximos Passos Planejados
 
-1. Aprovação final do layout e fluxo
-2. Ativação das chaves Stripe de produção
-3. Compra e configuração do domínio
-4. Migração para hospedagem definitiva
-5. Testes finais (pagamento, usabilidade, SEO)
-6. Lançamento oficial
+1. Monitorar os primeiros pedidos reais
+2. Ajustes finos de UX e conversão
+3. Implementar Webhooks do Stripe
+4. Automatizar notificações (WhatsApp / e-mail)
+5. Otimizações de SEO
+6. Escala de marketing e tráfego
 
 ---
 
@@ -124,18 +192,20 @@ Essas decisões visam **confiabilidade, performance e percepção de marca**.
 
 ### Overview
 
-**Luxyberry** is an **MVP (Minimum Viable Product)** for a premium one-page website focused on selling **chocolate-covered strawberries**, emphasizing a refined visual identity, mobile-first experience, and **secure online payments via Stripe**.
+**LuxyBerry** is an **MVP (Minimum Viable Product)** for a premium one-page e-commerce website focused on selling **chocolate-covered strawberries**, with a strong emphasis on **mobile-first experience**, refined visual identity, and **secure online payments via Stripe**.
 
-The project was designed for early business validation, with technical decisions already aligned for a professional production launch.
+The project was built with a production-ready architecture, separating frontend and backend, and is **technically ready for commercial operation**.
 
 ---
 
 ### Project Goals
 
-* Present the Luxyberry brand through a **premium one-page website**
-* Allow customers to place orders online easily
+* Present the LuxyBerry brand through a **premium one-page experience**
+* Allow customers to build orders using a **shopping cart**
+* Enable adding multiple items before checkout
 * Redirect payments to **Stripe Checkout** for maximum security
-* Serve as a solid foundation for future growth and scalability
+* Display post-payment confirmation pages
+* Provide a solid foundation for future scalability
 
 ---
 
@@ -146,17 +216,26 @@ The project was designed for early business validation, with technical decisions
 * HTML5
 * CSS3
 * Vanilla JavaScript
-* Mobile-first structure
+* Mobile-first design
+* E-commerce UX with cart drawer
+
+Hosting:
+
+* **Vercel**
 
 Directory:
 
 ```
 frontend/
  ├─ index.html
+ ├─ success.html
+ ├─ cancel.html
  ├─ css/
  ├─ js/
  └─ assets/
 ```
+
+---
 
 #### Backend
 
@@ -164,16 +243,20 @@ frontend/
 * Express.js
 * Stripe API (Checkout)
 
+Hosting:
+
+* **Render**
+
 Responsibilities:
 
 * Create Stripe Checkout sessions
-* Redirect users to the secure payment environment
+* Validate cart items
+* Redirect users to the secure Stripe payment flow
 
 Directory:
 
 ```
 backend/
- ├─ config/
  ├─ routes/
  ├─ services/
  └─ server.js
@@ -184,6 +267,7 @@ backend/
 ### Payments
 
 * Integrated with **Stripe Checkout**
+* Stripe running in **LIVE mode**
 * Supports:
 
   * Credit cards
@@ -195,28 +279,27 @@ backend/
 
 ### Deployment (Current State)
 
-⚠️ **Temporary / demo environment**
-
-The project is currently deployed on Render for testing and validation purposes only:
+#### Frontend
 
 ```
-https://luxyberry1.onrender.com/
+https://luxyberry.vercel.app
 ```
 
-> This URL **does not represent the final production environment**.
+#### Backend
+
+```
+https://luxyberry1.onrender.com
+```
 
 ---
 
-### Infrastructure Decisions (Production Planning)
+### Official Domain
 
-The following decisions are already defined for production:
+```
+https://luxyberry.com.au
+```
 
-* Use of a **custom domain** (.com or .com.au)
-* Stable hosting in **Australia** (e.g., DigitalOcean – Sydney)
-* Stripe in production mode
-* Avoidance of temporary hosting domains in production
-
-These choices aim to ensure **reliability, performance, and brand credibility**.
+This is the **recommended production URL** for customers.
 
 ---
 
@@ -224,16 +307,20 @@ These choices aim to ensure **reliability, performance, and brand credibility**.
 
 * Functional MVP
 * Stable frontend
-* Minimal backend integrated with Stripe Checkout
-* Under validation and refinement
+* Production-ready backend
+* Stripe LIVE enabled
+* Ready for real transactions
 
 ---
 
 ### Next Steps
 
-1. Final approval of layout and user flow
-2. Enable Stripe production keys
-3. Purchase and configure custom domain
-4. Migrate to definitive hosting
-5. Final tests (payments, usability, SEO)
-6. Official launch
+1. Monitor initial real orders
+2. UX and conversion optimizations
+3. Stripe webhook integration
+4. Automated notifications
+5. SEO improvements
+6. Official marketing launch
+
+---
+
