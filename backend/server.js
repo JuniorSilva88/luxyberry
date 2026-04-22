@@ -45,21 +45,27 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow server-to-server, healthchecks, curl, Stripe webhooks
+    console.log("🌐 Origin:", origin);
+
+    // Permite chamadas sem origin (Stripe, curl, etc)
     if (!origin) return callback(null, true);
 
-    // Allow preview deployments
+    // Permite Vercel
     if (origin.endsWith(".vercel.app")) return callback(null, true);
-    if (origin.endsWith(".onrender.com")) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Permite seu domínio oficial
+    if (origin === "https://luxyberry.com.au") return callback(null, true);
+    if (origin === "https://www.luxyberry.com.au") return callback(null, true);
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("❌ CORS blocked origin:", origin);
-    }
+    // Permite localhost QUALQUER PORTA (IMPORTANTE)
+    if (origin.startsWith("http://localhost")) return callback(null, true);
+    if (origin.startsWith("http://127.0.0.1")) return callback(null, true);
 
-    return callback(new Error("Not allowed by CORS"));
+    console.warn("❌ CORS blocked:", origin);
+
+    return callback(null, false);
   },
+
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true,
