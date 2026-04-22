@@ -76,7 +76,7 @@ app.options("*", cors(corsOptions));
 app.use(express.json());
 
 // CORS applied ONLY to API
-app.use("/api", cors(corsOptions));
+app.use(cors(corsOptions));
 
 /* =========================================================
    API ROUTES
