@@ -225,7 +225,7 @@ async function checkout() {
       // 🔴 IMPORTANTE:
       // Aqui você já está enviando em CENTAVOS
       // (backend também multiplica — cuidado com duplicação)
-      unit_amount: Math.round(Number(item.pricePer || 0) * 100),
+      unit_amount: Number(item.pricePer || 0),
 
       quantity: Number(item.quantity || 1),
     };
