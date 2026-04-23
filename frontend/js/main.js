@@ -163,33 +163,55 @@ function removeFromCart(index) {
 
 
 /* ================================
-   (5) CHECKOUT  ✅ 
+   (5) CHECKOUT  ✅ (REFATORADO)
    ================================ */
 async function checkout() {
+  /* ===============================
+     VALIDAÇÃO DO CARRINHO
+  =============================== */
   if (!cart || cart.length === 0) {
     alert("Your cart is currently empty.");
     return;
   }
 
-  // 🔹 NOVO: captura do nome do cliente
-  const customerName =
-    document.getElementById("customerName")?.value || "";
+  /* ===============================
+     CAPTURA SEGURA DO INPUT
+  =============================== */
+  const input = document.getElementById("customerName");
 
-  if (!customerName) {
-    alert("Please enter your name before checkout.");
+  if (!input) {
+    console.error("❌ Input #customerName not found in DOM");
+    alert("Unexpected error. Please reload the page.");
     return;
   }
 
+  // 🔹 leitura robusta do valor atual
+  const customerName = input.value.trim();
+
+  // 🔍 DEBUG CRÍTICO
+  console.log("🔥 CHECKOUT NAME:", customerName);
+
+  if (!customerName || customerName.length < 2) {
+    alert("Please enter your name before checkout.");
+    input.focus();
+    return;
+  }
+
+  /* ===============================
+     NORMALIZAÇÃO DOS ITENS
+  =============================== */
   const items = cart.map((item) => {
     const descriptionParts = [];
 
     if (item.chocolate) descriptionParts.push(`Chocolate: ${item.chocolate}`);
     if (item.toppings?.length) descriptionParts.push(`Toppings: ${item.toppings.join(", ")}`);
+
     if (item.regionLabel) {
       descriptionParts.push(
         `Delivery: ${item.regionLabel} (A$ ${Number(item.deliveryFee || 0).toFixed(2)})`
       );
     }
+
     if (item.deliveryDate) descriptionParts.push(`Date: ${item.deliveryDate}`);
     if (item.notes) descriptionParts.push(`Notes: ${item.notes}`);
     if (item.postcode) descriptionParts.push(`Postcode: ${item.postcode}`);
@@ -199,12 +221,28 @@ async function checkout() {
     return {
       name: sizeLabels[item.size] || item.size,
       description: descriptionParts.join(" | "),
-      unit_amount: Math.round(Number(item.pricePer || 0) * 100), // cents
+
+      // 🔴 IMPORTANTE:
+      // Aqui você já está enviando em CENTAVOS
+      // (backend também multiplica — cuidado com duplicação)
+      unit_amount: Math.round(Number(item.pricePer || 0) * 100),
+
       quantity: Number(item.quantity || 1),
     };
   });
 
+  /* ===============================
+     DEBUG ANTES DO ENVIO
+  =============================== */
+  console.log("📤 ENVIANDO PARA API:", {
+    customerName,
+    items
+  });
+
   try {
+    /* ===============================
+       DETECÇÃO DE AMBIENTE
+    =============================== */
     const host = window.location.hostname;
 
     const isLocal = host === "localhost" || host === "127.0.0.1";
@@ -216,19 +254,27 @@ async function checkout() {
         ? ""
         : "https://luxyberry1.onrender.com";
 
+    /* ===============================
+       REQUEST
+    =============================== */
     const response = await fetch(`${API_BASE}/api/checkout`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // 🔹 NOVO: envia o nome junto
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         items,
         customerName
       }),
     });
 
+    /* ===============================
+       TRATAMENTO DE ERRO
+    =============================== */
     if (!response.ok) {
       const errText = await response.text().catch(() => "");
-      console.error("Checkout failed:", response.status, errText);
+      console.error("❌ Checkout failed:", response.status, errText);
+
       alert("Unable to start payment. Please try again.");
       return;
     }
@@ -236,14 +282,18 @@ async function checkout() {
     const data = await response.json();
 
     if (!data?.url) {
-      console.error("Payment URL missing in response:", data);
+      console.error("❌ Payment URL missing:", data);
       alert("Payment link was not received.");
       return;
     }
 
+    /* ===============================
+       REDIRECIONAMENTO
+    =============================== */
     window.location.assign(data.url);
+
   } catch (err) {
-    console.error("Checkout error:", err);
+    console.error("💥 Checkout error:", err);
     alert("We couldn’t connect to the payment service. Please try again.");
   }
 }
